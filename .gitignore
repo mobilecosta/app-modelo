@@ -7,3 +7,4 @@ backend/dist/
 backend/node_modules/
 backend/.angular/
 backend/.vscode/
+node_modules/

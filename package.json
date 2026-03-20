@@ -5,5 +5,9 @@
     "build": "npm run build --prefix frontend",
     "build:frontend": "npm run build --prefix frontend",
     "build:backend": "npm run build --prefix backend"
+  },
+  "dependencies": {
+    "axios": "^1.13.6",
+    "pdf-parse": "^2.4.5"
   }
 }
