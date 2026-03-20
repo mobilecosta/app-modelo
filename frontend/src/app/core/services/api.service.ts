@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {
-  ApiResponse, Campo, Menu, Sistema, Tabela, Usuario
+  ApiResponse, Campo, Menu, Pessoa, PessoaFormPayload, PessoaReceitaWsResponse, Sistema, Tabela, Usuario
 } from '../models/types';
 import { environment } from '../../../environments/environment';
 
@@ -125,5 +125,32 @@ export class ApiService {
       .set('page', page)
       .set('pageSize', pageSize);
     return this.http.get<ApiResponse<Sistema>>(`${environment.apiUrl}/sistemas`, { params });
+  }
+
+  listarPessoas(page = 1, pageSize = 10): Observable<ApiResponse<Pessoa>> {
+    const params = new HttpParams()
+      .set('page', page)
+      .set('pageSize', pageSize);
+    return this.http.get<ApiResponse<Pessoa>>(`${environment.apiUrl}/pessoas`, { params });
+  }
+
+  buscarPessoa(id: string): Observable<ApiResponse<Pessoa>> {
+    return this.http.get<ApiResponse<Pessoa>>(`${environment.apiUrl}/pessoas/${id}`);
+  }
+
+  criarPessoa(dados: PessoaFormPayload): Observable<ApiResponse<Pessoa>> {
+    return this.http.post<ApiResponse<Pessoa>>(`${environment.apiUrl}/pessoas`, dados);
+  }
+
+  atualizarPessoa(id: string, dados: PessoaFormPayload): Observable<ApiResponse<Pessoa>> {
+    return this.http.put<ApiResponse<Pessoa>>(`${environment.apiUrl}/pessoas/${id}`, dados);
+  }
+
+  excluirPessoa(id: string): Observable<void> {
+    return this.http.delete<void>(`${environment.apiUrl}/pessoas/${id}`);
+  }
+
+  consultarReceitaWs(cnpj: string): Observable<PessoaReceitaWsResponse> {
+    return this.http.get<PessoaReceitaWsResponse>(`${environment.apiUrl}/pessoas/receitaws/${cnpj}`);
   }
 }

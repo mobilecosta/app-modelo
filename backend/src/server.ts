@@ -8,6 +8,7 @@ import tabelasRoutes from './routes/tabelas.routes';
 import camposRoutes from './routes/campos.routes';
 import menusRoutes from './routes/menus.routes';
 import sistemasRoutes from './routes/sistemas.routes';
+import pessoasRoutes from './routes/pessoas.routes';
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ app.use('/api/tabelas', tabelasRoutes);
 app.use('/api/campos', camposRoutes);
 app.use('/api/menus', menusRoutes);
 app.use('/api/sistemas', sistemasRoutes);
+app.use('/api/pessoas', pessoasRoutes);
 
 app.get(['/health', '/api/health'], (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });

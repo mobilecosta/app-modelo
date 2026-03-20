@@ -255,6 +255,16 @@ body {
   text-align: center;
 }
 
+.pessoas-juridicas__consulta {
+  display: flex;
+  align-items: flex-end;
+  min-height: 100%;
+}
+
+.pessoas-juridicas__consulta .po-button {
+  width: 100%;
+}
+
 @media (max-width: 960px) {
   .crud-register__grid {
     grid-template-columns: 1fr;

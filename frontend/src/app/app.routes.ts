@@ -37,6 +37,10 @@ export const routes: Routes = [
       {
         path: 'menus',
         loadComponent: () => import('./features/menus/menus.component').then(m => m.MenusComponent)
+      },
+      {
+        path: 'pessoas_juridicas',
+        loadComponent: () => import('./features/pessoas-juridicas/pessoas-juridicas.component').then(m => m.PessoasJuridicasComponent)
       }
     ]
   },

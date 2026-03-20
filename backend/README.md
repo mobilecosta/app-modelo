@@ -49,6 +49,8 @@ Por padrão, a API sobe na porta `3000`.
 - `GET /api/campos`
 - `GET /api/menus`
 - `GET /api/sistemas`
+- `GET /api/pessoas`
+- `GET /api/pessoas/receitaws/:cnpj`
 
 As rotas são registradas em `src/server.ts` e os módulos ficam organizados em `controllers/`, `routes/`, `middlewares/`, `models/` e `config/`.
 
