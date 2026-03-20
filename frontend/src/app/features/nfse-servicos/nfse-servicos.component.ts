@@ -354,7 +354,8 @@ import { NfseServico } from '../../core/models/types';
                   <po-input p-label="ID Ativ. do Evento" [(ngModel)]="form.infDPS_serv_atvEvento_idAtvEvt" class="po-lg-4"></po-input>
                   <po-input p-label="ID do Evento" [(ngModel)]="form.infDPS_serv_atvEvento_id" class="po-lg-4"></po-input>
                   <po-datepicker p-label="Data Inic. do Evento" [(ngModel)]="form.infDPS_serv_atvEvento_dtIni" class="po-lg-3"></po-datepicker>
-                  <po-datepicker p-label="Data Fim do Evento" [(ngModel)]="form.infDPS_serv_atvEvento_dtFim" class="po-lg-3"></po-n                  <po-input p-label="CEP (Evento)" [(ngModel)]="form.infDPS_serv_atvEvento_end_CEP" p-mask="99999-999" class="po-lg-3"></po-input>
+                  <po-datepicker p-label="Data Fim do Evento" [(ngModel)]="form.infDPS_serv_atvEvento_dtFim" class="po-lg-3"></po-datepicker>
+                  <po-input p-label="CEP (Evento)" [(ngModel)]="form.infDPS_serv_atvEvento_end_CEP" p-mask="99999-999" class="po-lg-3"></po-input>
                   <po-input p-label="Cod. Postal Ext. (Evento)" [(ngModel)]="form.infDPS_serv_atvEvento_end_endExt_cEndPost" class="po-lg-3"></po-input>
                   <po-input p-label="Cidade Ext. (Evento)" [(ngModel)]="form.infDPS_serv_atvEvento_end_endExt_xCidade" class="po-lg-3"></po-input>
                   <po-input p-label="Estado Ext. (Evento)" [(ngModel)]="form.infDPS_serv_atvEvento_end_endExt_xEstProvReg" class="po-lg-3"></po-input>
