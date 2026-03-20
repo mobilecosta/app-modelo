@@ -86,9 +86,10 @@ import { NfseServico } from '../../core/models/types';
 
         <div class="crud-modal__content">
           <section class="crud-section">
-            <h4 class="crud-section__title">Selecao e Enum</h4>
-            <p class="crud-section__hint">Campos categorizados na documentacao como enum ou codigos de classificacao com preenchimento controlado.</p>
+            <h4 class="crud-section__title">Raiz + infDPS</h4>
+            <p class="crud-section__hint">Campos do nivel principal do JSON e atributos diretos do objeto infDPS.</p>
             <div class="po-row">
+              <po-input p-label="Referencia" [(ngModel)]="form.referencia" class="po-lg-3"></po-input>
               <po-select
                 p-label="Provedor"
                 [ngModel]="form.provedor"
@@ -104,6 +105,10 @@ import { NfseServico } from '../../core/models/types';
                 class="po-lg-3">
               </po-select>
               <po-number p-label="tpAmb" [(ngModel)]="form.infDPS_tpAmb" class="po-lg-3"></po-number>
+              <po-input p-label="dhEmi" [(ngModel)]="form.infDPS_dhEmi" class="po-lg-3"></po-input>
+              <po-input p-label="dCompet" [(ngModel)]="form.infDPS_dCompet" class="po-lg-3"></po-input>
+              <po-input p-label="verAplic" [(ngModel)]="form.infDPS_verAplic" class="po-lg-3"></po-input>
+              <po-input p-label="chNFSeRej" [(ngModel)]="form.infDPS_chNFSeRej" class="po-lg-3"></po-input>
               <po-number p-label="Reg. Especial Tributario" [(ngModel)]="form.infDPS_prest_regTrib_regEspTrib" class="po-lg-3"></po-number>
               <po-number p-label="Motivo Emissao TI" [(ngModel)]="form.infDPS_cMotivoEmisTI" class="po-lg-3"></po-number>
               <po-number p-label="Modo Prestacao" [(ngModel)]="form.infDPS_serv_comExt_mdPrestacao" class="po-lg-3"></po-number>
@@ -125,59 +130,123 @@ import { NfseServico } from '../../core/models/types';
           </section>
 
           <section class="crud-section">
-            <h4 class="crud-section__title">Datas e Horarios</h4>
-            <p class="crud-section__hint">Campos temporais da documentacao mantidos em formato texto ou data para facilitar a recepcao do payload.</p>
+            <h4 class="crud-section__title">infDPS.subst</h4>
+            <p class="crud-section__hint">Campos do bloco de substituicao `infDPS.subst`.</p>
             <div class="po-row">
-              <po-input p-label="Data/Hora Emissao" [(ngModel)]="form.infDPS_dhEmi" class="po-lg-4"></po-input>
-              <po-input p-label="Competencia" [(ngModel)]="form.infDPS_dCompet" class="po-lg-4"></po-input>
-              <po-input p-label="Ativ. Evento Dt. Inicio" [(ngModel)]="form.infDPS_serv_atvEvento_dtIni" class="po-lg-4"></po-input>
-              <po-input p-label="Ativ. Evento Dt. Fim" [(ngModel)]="form.infDPS_serv_atvEvento_dtFim" class="po-lg-4"></po-input>
+              <po-input p-label="subst.chSubstda" [(ngModel)]="form.infDPS_subst_chSubstda" class="po-lg-4"></po-input>
+              <po-input p-label="subst.cMotivo" [(ngModel)]="form.infDPS_subst_cMotivo" class="po-lg-4"></po-input>
+              <po-input p-label="subst.xMotivo" [(ngModel)]="form.infDPS_subst_xMotivo" class="po-lg-4"></po-input>
             </div>
           </section>
 
           <section class="crud-section">
-            <h4 class="crud-section__title">Textos e Identificadores</h4>
-            <p class="crud-section__hint">Campos textuais, documentos e identificadores recebidos da documentacao da DPS.</p>
+            <h4 class="crud-section__title">infDPS.prest</h4>
+            <p class="crud-section__hint">Campos do prestador e do bloco `regTrib`.</p>
             <div class="po-row">
-              <po-input p-label="Referencia" [(ngModel)]="form.referencia" class="po-lg-3"></po-input>
-              <po-input p-label="Versao Aplicacao" [(ngModel)]="form.infDPS_verAplic" class="po-lg-3"></po-input>
-              <po-input p-label="Chave NFSe Rejeitada" [(ngModel)]="form.infDPS_chNFSeRej" class="po-lg-3"></po-input>
-              <po-input p-label="Substituida" [(ngModel)]="form.infDPS_subst_chSubstda" class="po-lg-3"></po-input>
-              <po-input p-label="Subst. Codigo Motivo" [(ngModel)]="form.infDPS_subst_cMotivo" class="po-lg-4"></po-input>
-              <po-input p-label="Subst. Motivo" [(ngModel)]="form.infDPS_subst_xMotivo" class="po-lg-8"></po-input>
               <po-input p-label="Prestador CNPJ" [(ngModel)]="form.infDPS_prest_CNPJ" class="po-lg-3"></po-input>
               <po-input p-label="Prestador CPF" [(ngModel)]="form.infDPS_prest_CPF" class="po-lg-3"></po-input>
+              <po-number p-label="prest.regTrib.regEspTrib" [(ngModel)]="form.infDPS_prest_regTrib_regEspTrib" class="po-lg-3"></po-number>
+            </div>
+          </section>
+
+          <section class="crud-section">
+            <h4 class="crud-section__title">infDPS.toma</h4>
+            <p class="crud-section__hint">Campos do tomador, incluindo identificacao, contato e endereco.</p>
+            <div class="po-row">
               <po-input p-label="Pessoa ID" [(ngModel)]="form.infDPS_toma_pessoa_id" class="po-lg-3"></po-input>
               <po-input p-label="Tomador CNPJ" [(ngModel)]="form.infDPS_toma_CNPJ" class="po-lg-3"></po-input>
               <po-input p-label="Tomador CPF" [(ngModel)]="form.infDPS_toma_CPF" class="po-lg-3"></po-input>
+              <po-input p-label="Tomador NIF" [(ngModel)]="form.infDPS_toma_NIF" class="po-lg-3"></po-input>
+              <po-number p-label="Tomador cNaoNIF" [(ngModel)]="form.infDPS_toma_cNaoNIF" class="po-lg-3"></po-number>
+              <po-input p-label="Tomador CAEPF" [(ngModel)]="form.infDPS_toma_CAEPF" class="po-lg-3"></po-input>
+              <po-input p-label="Tomador IM" [(ngModel)]="form.infDPS_toma_IM" class="po-lg-3"></po-input>
+              <po-input p-label="Tomador IE" [(ngModel)]="form.infDPS_toma_IE" class="po-lg-3"></po-input>
               <po-input p-label="Tomador Nome" [(ngModel)]="form.infDPS_toma_xNome" class="po-lg-6"></po-input>
               <po-email p-label="Tomador Email" [(ngModel)]="form.infDPS_toma_email" class="po-lg-3"></po-email>
               <po-input p-label="Tomador Fone" [(ngModel)]="form.infDPS_toma_fone" class="po-lg-3"></po-input>
-              <po-input p-label="Tomador Municipio" [(ngModel)]="form.infDPS_toma_end_endNac_cMun" class="po-lg-3"></po-input>
-              <po-input p-label="Tomador CEP" [(ngModel)]="form.infDPS_toma_end_endNac_CEP" class="po-lg-3"></po-input>
-              <po-input p-label="Tomador Logradouro" [(ngModel)]="form.infDPS_toma_end_xLgr" class="po-lg-4"></po-input>
-              <po-input p-label="Tomador Numero" [(ngModel)]="form.infDPS_toma_end_nro" class="po-lg-2"></po-input>
+              <po-input p-label="toma.end.endNac.cMun" [(ngModel)]="form.infDPS_toma_end_endNac_cMun" class="po-lg-3"></po-input>
+              <po-input p-label="toma.end.endNac.CEP" [(ngModel)]="form.infDPS_toma_end_endNac_CEP" class="po-lg-3"></po-input>
+              <po-input p-label="toma.end.endExt.cPais" [(ngModel)]="form.infDPS_toma_end_endExt_cPais" class="po-lg-3"></po-input>
+              <po-input p-label="toma.end.endExt.cEndPost" [(ngModel)]="form.infDPS_toma_end_endExt_cEndPost" class="po-lg-3"></po-input>
+              <po-input p-label="toma.end.endExt.xCidade" [(ngModel)]="form.infDPS_toma_end_endExt_xCidade" class="po-lg-3"></po-input>
+              <po-input p-label="toma.end.endExt.xEstProvReg" [(ngModel)]="form.infDPS_toma_end_endExt_xEstProvReg" class="po-lg-3"></po-input>
+              <po-input p-label="toma.end.xLgr" [(ngModel)]="form.infDPS_toma_end_xLgr" class="po-lg-4"></po-input>
+              <po-input p-label="toma.end.tpLgr" [(ngModel)]="form.infDPS_toma_end_tpLgr" class="po-lg-2"></po-input>
+              <po-input p-label="toma.end.nro" [(ngModel)]="form.infDPS_toma_end_nro" class="po-lg-2"></po-input>
+              <po-input p-label="toma.end.xCpl" [(ngModel)]="form.infDPS_toma_end_xCpl" class="po-lg-3"></po-input>
+              <po-input p-label="toma.end.xBairro" [(ngModel)]="form.infDPS_toma_end_xBairro" class="po-lg-3"></po-input>
+              <po-switch p-label="toma.orgaoPublico" [(ngModel)]="form.infDPS_toma_orgaoPublico" class="po-lg-3"></po-switch>
+            </div>
+          </section>
+
+          <section class="crud-section">
+            <h4 class="crud-section__title">infDPS.interm</h4>
+            <p class="crud-section__hint">Campos do intermediario, com identificacao, contato e endereco.</p>
+            <div class="po-row">
               <po-input p-label="Intermediario CNPJ" [(ngModel)]="form.infDPS_interm_CNPJ" class="po-lg-3"></po-input>
               <po-input p-label="Intermediario CPF" [(ngModel)]="form.infDPS_interm_CPF" class="po-lg-3"></po-input>
+              <po-input p-label="Intermediario NIF" [(ngModel)]="form.infDPS_interm_NIF" class="po-lg-3"></po-input>
+              <po-number p-label="Intermediario cNaoNIF" [(ngModel)]="form.infDPS_interm_cNaoNIF" class="po-lg-3"></po-number>
+              <po-input p-label="Intermediario CAEPF" [(ngModel)]="form.infDPS_interm_CAEPF" class="po-lg-3"></po-input>
+              <po-input p-label="Intermediario IM" [(ngModel)]="form.infDPS_interm_IM" class="po-lg-3"></po-input>
+              <po-input p-label="Intermediario IE" [(ngModel)]="form.infDPS_interm_IE" class="po-lg-3"></po-input>
               <po-input p-label="Intermediario Nome" [(ngModel)]="form.infDPS_interm_xNome" class="po-lg-6"></po-input>
-              <po-input p-label="Cod. Trib. Nacional" [(ngModel)]="form.infDPS_serv_cServ_cTribNac" class="po-lg-3"></po-input>
-              <po-input p-label="Cod. Trib. Municipal" [(ngModel)]="form.infDPS_serv_cServ_cTribMun" class="po-lg-3"></po-input>
-              <po-input p-label="CNAE" [(ngModel)]="form.infDPS_serv_cServ_CNAE" class="po-lg-3"></po-input>
-              <po-input p-label="NBS" [(ngModel)]="form.infDPS_serv_cServ_cNBS" class="po-lg-3"></po-input>
-              <po-input p-label="Natureza Operacao" [(ngModel)]="form.infDPS_serv_cServ_cNatOp" class="po-lg-3"></po-input>
-              <po-input p-label="Situacao Tributaria" [(ngModel)]="form.infDPS_serv_cServ_cSitTrib" class="po-lg-3"></po-input>
-              <po-input p-label="Tipo Moeda" [(ngModel)]="form.infDPS_serv_comExt_tpMoeda" class="po-lg-3"></po-input>
-              <po-input p-label="Numero DI" [(ngModel)]="form.infDPS_serv_comExt_nDI" class="po-lg-3"></po-input>
-              <po-input p-label="Numero RE" [(ngModel)]="form.infDPS_serv_comExt_nRE" class="po-lg-3"></po-input>
-              <po-input p-label="IBSCBS cIndOp" [(ngModel)]="form.infDPS_IBSCBS_cIndOp" class="po-lg-3"></po-input>
+              <po-email p-label="Intermediario Email" [(ngModel)]="form.infDPS_interm_email" class="po-lg-3"></po-email>
+              <po-input p-label="Intermediario Fone" [(ngModel)]="form.infDPS_interm_fone" class="po-lg-3"></po-input>
+              <po-input p-label="interm.end.endNac.cMun" [(ngModel)]="form.infDPS_interm_end_endNac_cMun" class="po-lg-3"></po-input>
+              <po-input p-label="interm.end.endNac.CEP" [(ngModel)]="form.infDPS_interm_end_endNac_CEP" class="po-lg-3"></po-input>
+              <po-input p-label="interm.end.endExt.cPais" [(ngModel)]="form.infDPS_interm_end_endExt_cPais" class="po-lg-3"></po-input>
+              <po-input p-label="interm.end.endExt.cEndPost" [(ngModel)]="form.infDPS_interm_end_endExt_cEndPost" class="po-lg-3"></po-input>
+              <po-input p-label="interm.end.endExt.xCidade" [(ngModel)]="form.infDPS_interm_end_endExt_xCidade" class="po-lg-3"></po-input>
+              <po-input p-label="interm.end.endExt.xEstProvReg" [(ngModel)]="form.infDPS_interm_end_endExt_xEstProvReg" class="po-lg-3"></po-input>
+              <po-input p-label="interm.end.xLgr" [(ngModel)]="form.infDPS_interm_end_xLgr" class="po-lg-4"></po-input>
+              <po-input p-label="interm.end.tpLgr" [(ngModel)]="form.infDPS_interm_end_tpLgr" class="po-lg-2"></po-input>
+              <po-input p-label="interm.end.nro" [(ngModel)]="form.infDPS_interm_end_nro" class="po-lg-2"></po-input>
+              <po-input p-label="interm.end.xCpl" [(ngModel)]="form.infDPS_interm_end_xCpl" class="po-lg-3"></po-input>
+              <po-input p-label="interm.end.xBairro" [(ngModel)]="form.infDPS_interm_end_xBairro" class="po-lg-3"></po-input>
+            </div>
+          </section>
+
+          <section class="crud-section">
+            <h4 class="crud-section__title">infDPS.serv</h4>
+            <p class="crud-section__hint">Campos dos blocos `locPrest`, `cServ`, `comExt`, `lsadppu`, `obra`, `atvEvento`, `explRod` e `infoCompl`.</p>
+            <div class="po-row">
+              <po-input p-label="serv.locPrest.cLocPrestacao" [(ngModel)]="form.infDPS_serv_locPrest_cLocPrestacao" class="po-lg-3"></po-input>
+              <po-input p-label="serv.locPrest.cPaisPrestacao" [(ngModel)]="form.infDPS_serv_locPrest_cPaisPrestacao" class="po-lg-3"></po-input>
+              <po-input p-label="serv.cServ.cTribNac" [(ngModel)]="form.infDPS_serv_cServ_cTribNac" class="po-lg-3"></po-input>
+              <po-input p-label="serv.cServ.cTribMun" [(ngModel)]="form.infDPS_serv_cServ_cTribMun" class="po-lg-3"></po-input>
+              <po-input p-label="serv.cServ.CNAE" [(ngModel)]="form.infDPS_serv_cServ_CNAE" class="po-lg-3"></po-input>
+              <po-input p-label="serv.cServ.cNBS" [(ngModel)]="form.infDPS_serv_cServ_cNBS" class="po-lg-3"></po-input>
+              <po-input p-label="serv.cServ.cNatOp" [(ngModel)]="form.infDPS_serv_cServ_cNatOp" class="po-lg-3"></po-input>
+              <po-input p-label="serv.cServ.cSitTrib" [(ngModel)]="form.infDPS_serv_cServ_cSitTrib" class="po-lg-3"></po-input>
+              <po-input p-label="serv.comExt.tpMoeda" [(ngModel)]="form.infDPS_serv_comExt_tpMoeda" class="po-lg-3"></po-input>
+              <po-input p-label="serv.comExt.nDI" [(ngModel)]="form.infDPS_serv_comExt_nDI" class="po-lg-3"></po-input>
+              <po-input p-label="serv.comExt.nRE" [(ngModel)]="form.infDPS_serv_comExt_nRE" class="po-lg-3"></po-input>
+              <po-input p-label="serv.infoCompl.idDocTec" [(ngModel)]="form.infDPS_serv_infoCompl_idDocTec" class="po-lg-3"></po-input>
+              <po-input p-label="serv.infoCompl.docRef" [(ngModel)]="form.infDPS_serv_infoCompl_docRef" class="po-lg-3"></po-input>
+              <po-input p-label="serv.infoCompl.xPed" [(ngModel)]="form.infDPS_serv_infoCompl_xPed" class="po-lg-3"></po-input>
+              <po-input p-label="serv.atvEvento.dtIni" [(ngModel)]="form.infDPS_serv_atvEvento_dtIni" class="po-lg-3"></po-input>
+              <po-input p-label="serv.atvEvento.dtFim" [(ngModel)]="form.infDPS_serv_atvEvento_dtFim" class="po-lg-3"></po-input>
+              <po-number p-label="Valor Servico Moeda" [(ngModel)]="form.infDPS_serv_comExt_vServMoeda" class="po-lg-3"></po-number>
+              <po-number p-label="serv.lsadppu.categ" [(ngModel)]="form.infDPS_serv_lsadppu_categ" class="po-lg-3"></po-number>
+              <po-number p-label="serv.lsadppu.objeto" [(ngModel)]="form.infDPS_serv_lsadppu_objeto" class="po-lg-3"></po-number>
+              <po-input p-label="serv.lsadppu.extensao" [(ngModel)]="form.infDPS_serv_lsadppu_extensao" class="po-lg-3"></po-input>
+              <po-input p-label="serv.lsadppu.nPostes" [(ngModel)]="form.infDPS_serv_lsadppu_nPostes" class="po-lg-3"></po-input>
+              <po-input p-label="serv.explRod.categVeic" [(ngModel)]="form.infDPS_serv_explRod_categVeic" class="po-lg-3"></po-input>
+              <po-input p-label="serv.explRod.nEixos" [(ngModel)]="form.infDPS_serv_explRod_nEixos" class="po-lg-3"></po-input>
+              <po-number p-label="serv.explRod.rodagem" [(ngModel)]="form.infDPS_serv_explRod_rodagem" class="po-lg-3"></po-number>
+              <po-input p-label="serv.explRod.sentido" [(ngModel)]="form.infDPS_serv_explRod_sentido" class="po-lg-3"></po-input>
+              <po-input p-label="serv.explRod.placa" [(ngModel)]="form.infDPS_serv_explRod_placa" class="po-lg-3"></po-input>
+              <po-input p-label="serv.obra.cObra" [(ngModel)]="form.infDPS_serv_obra_cObra" class="po-lg-3"></po-input>
+              <po-input p-label="serv.obra.cCIB" [(ngModel)]="form.infDPS_serv_obra_cCIB" class="po-lg-3"></po-input>
               <po-textarea
-                p-label="Descricao do Servico"
+                p-label="serv.cServ.xDescServ"
                 [(ngModel)]="form.infDPS_serv_cServ_xDescServ"
                 [p-rows]="3"
                 class="po-lg-12">
               </po-textarea>
               <po-textarea
-                p-label="Informacao Complementar"
+                p-label="serv.infoCompl.xInfComp"
                 [(ngModel)]="form.infDPS_serv_infoCompl_xInfComp"
                 [p-rows]="3"
                 class="po-lg-12">
@@ -186,71 +255,104 @@ import { NfseServico } from '../../core/models/types';
           </section>
 
           <section class="crud-section">
-            <h4 class="crud-section__title">Campos Numericos</h4>
-            <p class="crud-section__hint">Campos numericos da documentacao, incluindo valores, aliquotas e indicadores quantitativos.</p>
+            <h4 class="crud-section__title">infDPS.valores</h4>
+            <p class="crud-section__hint">Campos dos blocos `vServPrest`, `vDescCondIncond`, `vDedRed` e `trib`.</p>
             <div class="po-row">
-              <po-number p-label="Valor Servico Moeda" [(ngModel)]="form.infDPS_serv_comExt_vServMoeda" class="po-lg-3"></po-number>
               <po-number p-label="Valor Recebido" [(ngModel)]="form.infDPS_valores_vServPrest_vReceb" class="po-lg-3"></po-number>
               <po-number p-label="Valor Servico" [(ngModel)]="form.infDPS_valores_vServPrest_vServ" class="po-lg-3"></po-number>
               <po-number p-label="Desc. Incond." [(ngModel)]="form.infDPS_valores_vDescCondIncond_vDescIncond" class="po-lg-3"></po-number>
               <po-number p-label="Desc. Cond." [(ngModel)]="form.infDPS_valores_vDescCondIncond_vDescCond" class="po-lg-3"></po-number>
               <po-number p-label="Perc. Ded./Red." [(ngModel)]="form.infDPS_valores_vDedRed_pDR" class="po-lg-3"></po-number>
               <po-number p-label="Valor Ded./Red." [(ngModel)]="form.infDPS_valores_vDedRed_vDR" class="po-lg-3"></po-number>
+              <po-number p-label="trib.tribMun.tribISSQN" [(ngModel)]="form.infDPS_valores_trib_tribMun_tribISSQN" class="po-lg-3"></po-number>
+              <po-input p-label="trib.tribMun.cPaisResult" [(ngModel)]="form.infDPS_valores_trib_tribMun_cPaisResult" class="po-lg-3"></po-input>
+              <po-number p-label="trib.tribMun.tpImunidade" [(ngModel)]="form.infDPS_valores_trib_tribMun_tpImunidade" class="po-lg-3"></po-number>
+              <po-number p-label="trib.tribMun.exigSusp.tpSusp" [(ngModel)]="form.infDPS_valores_trib_tribMun_exigSusp_tpSusp" class="po-lg-3"></po-number>
+              <po-input p-label="trib.tribMun.exigSusp.nProcesso" [(ngModel)]="form.infDPS_valores_trib_tribMun_exigSusp_nProcesso" class="po-lg-3"></po-input>
+              <po-number p-label="trib.tribMun.BM.tpBM" [(ngModel)]="form.infDPS_valores_trib_tribMun_BM_tpBM" class="po-lg-3"></po-number>
+              <po-input p-label="trib.tribMun.BM.nBM" [(ngModel)]="form.infDPS_valores_trib_tribMun_BM_nBM" class="po-lg-3"></po-input>
+              <po-number p-label="trib.tribMun.BM.vRedBCBM" [(ngModel)]="form.infDPS_valores_trib_tribMun_BM_vRedBCBM" class="po-lg-3"></po-number>
+              <po-number p-label="trib.tribMun.BM.pRedBCBM" [(ngModel)]="form.infDPS_valores_trib_tribMun_BM_pRedBCBM" class="po-lg-3"></po-number>
               <po-number p-label="Aliquota ISS" [(ngModel)]="form.infDPS_valores_trib_tribMun_pAliq" class="po-lg-3"></po-number>
               <po-number p-label="Base ISS" [(ngModel)]="form.infDPS_valores_trib_tribMun_vBC" class="po-lg-3"></po-number>
               <po-number p-label="Valor ISS" [(ngModel)]="form.infDPS_valores_trib_tribMun_vISSQN" class="po-lg-3"></po-number>
               <po-number p-label="Valor Liquido" [(ngModel)]="form.infDPS_valores_trib_tribMun_vLiq" class="po-lg-3"></po-number>
+              <po-input p-label="trib.tribFed.piscofins.CST" [(ngModel)]="form.infDPS_valores_trib_tribFed_piscofins_CST" class="po-lg-3"></po-input>
               <po-number p-label="PIS/COFINS Base" [(ngModel)]="form.infDPS_valores_trib_tribFed_piscofins_vBCPisCofins" class="po-lg-3"></po-number>
               <po-number p-label="Aliq. PIS" [(ngModel)]="form.infDPS_valores_trib_tribFed_piscofins_pAliqPis" class="po-lg-3"></po-number>
               <po-number p-label="Aliq. COFINS" [(ngModel)]="form.infDPS_valores_trib_tribFed_piscofins_pAliqCofins" class="po-lg-3"></po-number>
               <po-number p-label="Valor PIS" [(ngModel)]="form.infDPS_valores_trib_tribFed_piscofins_vPis" class="po-lg-3"></po-number>
               <po-number p-label="Valor COFINS" [(ngModel)]="form.infDPS_valores_trib_tribFed_piscofins_vCofins" class="po-lg-3"></po-number>
+              <po-number p-label="trib.tribFed.tpRetPisCofins" [(ngModel)]="form.infDPS_valores_trib_tribFed_piscofins_tpRetPisCofins" class="po-lg-3"></po-number>
               <po-number p-label="Ret. CP" [(ngModel)]="form.infDPS_valores_trib_tribFed_vRetCP" class="po-lg-3"></po-number>
               <po-number p-label="Ret. IRRF" [(ngModel)]="form.infDPS_valores_trib_tribFed_vRetIRRF" class="po-lg-3"></po-number>
               <po-number p-label="Ret. CSLL" [(ngModel)]="form.infDPS_valores_trib_tribFed_vRetCSLL" class="po-lg-3"></po-number>
               <po-number p-label="Tot. Trib. Fed." [(ngModel)]="form.infDPS_valores_trib_totTrib_vTotTrib_vTotTribFed" class="po-lg-3"></po-number>
               <po-number p-label="Tot. Trib. Est." [(ngModel)]="form.infDPS_valores_trib_totTrib_vTotTrib_vTotTribEst" class="po-lg-3"></po-number>
               <po-number p-label="Tot. Trib. Mun." [(ngModel)]="form.infDPS_valores_trib_totTrib_vTotTrib_vTotTribMun" class="po-lg-3"></po-number>
+              <po-number p-label="totTrib.pTotTribFed" [(ngModel)]="form.infDPS_valores_trib_totTrib_pTotTrib_pTotTribFed" class="po-lg-3"></po-number>
+              <po-number p-label="totTrib.pTotTribEst" [(ngModel)]="form.infDPS_valores_trib_totTrib_pTotTrib_pTotTribEst" class="po-lg-3"></po-number>
+              <po-number p-label="totTrib.pTotTribMun" [(ngModel)]="form.infDPS_valores_trib_totTrib_pTotTrib_pTotTribMun" class="po-lg-3"></po-number>
+              <po-number p-label="totTrib.indTotTrib" [(ngModel)]="form.infDPS_valores_trib_totTrib_indTotTrib" class="po-lg-3"></po-number>
               <po-number p-label="Perc. Tot. SN" [(ngModel)]="form.infDPS_valores_trib_totTrib_pTotTribSN" class="po-lg-3"></po-number>
-              <po-number p-label="IBSCBS pDifUF" [(ngModel)]="form.infDPS_IBSCBS_valores_trib_gIBSCBS_gDif_pDifUF" class="po-lg-4"></po-number>
-              <po-number p-label="IBSCBS pDifMun" [(ngModel)]="form.infDPS_IBSCBS_valores_trib_gIBSCBS_gDif_pDifMun" class="po-lg-4"></po-number>
-              <po-number p-label="IBSCBS pDifCBS" [(ngModel)]="form.infDPS_IBSCBS_valores_trib_gIBSCBS_gDif_pDifCBS" class="po-lg-4"></po-number>
             </div>
           </section>
 
           <section class="crud-section">
-            <h4 class="crud-section__title">Booleanos</h4>
-            <p class="crud-section__hint">Campos booleanos identificados na documentacao e controles do cadastro.</p>
+            <h4 class="crud-section__title">infDPS.IBSCBS</h4>
+            <p class="crud-section__hint">Campos dos blocos `gRefNFSe`, `dest`, `imovel` e `valores.trib.gIBSCBS`.</p>
             <div class="po-row">
-              <po-switch p-label="Orgao Publico" [(ngModel)]="form.infDPS_toma_orgaoPublico" class="po-lg-6"></po-switch>
+              <po-number p-label="finNFSe" [(ngModel)]="form.infDPS_IBSCBS_finNFSe" class="po-lg-3"></po-number>
+              <po-number p-label="indFinal" [(ngModel)]="form.infDPS_IBSCBS_indFinal" class="po-lg-3"></po-number>
+              <po-input p-label="cIndOp" [(ngModel)]="form.infDPS_IBSCBS_cIndOp" class="po-lg-3"></po-input>
+              <po-number p-label="tpOper" [(ngModel)]="form.infDPS_IBSCBS_tpOper" class="po-lg-3"></po-number>
+              <po-number p-label="tpEnteGov" [(ngModel)]="form.infDPS_IBSCBS_tpEnteGov" class="po-lg-3"></po-number>
+              <po-number p-label="indDest" [(ngModel)]="form.infDPS_IBSCBS_indDest" class="po-lg-3"></po-number>
+              <po-input p-label="dest.CNPJ" [(ngModel)]="form.infDPS_IBSCBS_dest_CNPJ" class="po-lg-3"></po-input>
+              <po-input p-label="dest.CPF" [(ngModel)]="form.infDPS_IBSCBS_dest_CPF" class="po-lg-3"></po-input>
+              <po-input p-label="dest.NIF" [(ngModel)]="form.infDPS_IBSCBS_dest_NIF" class="po-lg-3"></po-input>
+              <po-number p-label="dest.cNaoNIF" [(ngModel)]="form.infDPS_IBSCBS_dest_cNaoNIF" class="po-lg-3"></po-number>
+              <po-input p-label="dest.xNome" [(ngModel)]="form.infDPS_IBSCBS_dest_xNome" class="po-lg-6"></po-input>
+              <po-email p-label="dest.email" [(ngModel)]="form.infDPS_IBSCBS_dest_email" class="po-lg-3"></po-email>
+              <po-input p-label="dest.fone" [(ngModel)]="form.infDPS_IBSCBS_dest_fone" class="po-lg-3"></po-input>
+              <po-input p-label="imovel.inscImobFisc" [(ngModel)]="form.infDPS_IBSCBS_imovel_inscImobFisc" class="po-lg-3"></po-input>
+              <po-input p-label="imovel.cCIB" [(ngModel)]="form.infDPS_IBSCBS_imovel_cCIB" class="po-lg-3"></po-input>
+              <po-input p-label="gIBSCBS.CST" [(ngModel)]="form.infDPS_IBSCBS_valores_trib_gIBSCBS_CST" class="po-lg-3"></po-input>
+              <po-input p-label="gIBSCBS.cClassTrib" [(ngModel)]="form.infDPS_IBSCBS_valores_trib_gIBSCBS_cClassTrib" class="po-lg-3"></po-input>
+              <po-input p-label="gIBSCBS.cCredPres" [(ngModel)]="form.infDPS_IBSCBS_valores_trib_gIBSCBS_cCredPres" class="po-lg-3"></po-input>
+              <po-input p-label="gTribRegular.CSTReg" [(ngModel)]="form.infDPS_IBSCBS_valores_trib_gIBSCBS_gTribRegular_CSTReg" class="po-lg-3"></po-input>
+              <po-input p-label="gTribRegular.cClassTribReg" [(ngModel)]="form.infDPS_IBSCBS_valores_trib_gIBSCBS_gTribRegular_cClassTribReg" class="po-lg-6"></po-input>
+              <po-number p-label="gDif.pDifUF" [(ngModel)]="form.infDPS_IBSCBS_valores_trib_gIBSCBS_gDif_pDifUF" class="po-lg-2"></po-number>
+              <po-number p-label="gDif.pDifMun" [(ngModel)]="form.infDPS_IBSCBS_valores_trib_gIBSCBS_gDif_pDifMun" class="po-lg-2"></po-number>
+              <po-number p-label="gDif.pDifCBS" [(ngModel)]="form.infDPS_IBSCBS_valores_trib_gIBSCBS_gDif_pDifCBS" class="po-lg-2"></po-number>
               <po-switch p-label="Ativo" [(ngModel)]="form.ativo" class="po-lg-6"></po-switch>
             </div>
           </section>
 
           <section class="crud-section">
-            <h4 class="crud-section__title">Estruturados JSON</h4>
-            <p class="crud-section__hint">Listas e grupos complexos da documentacao mantidos como JSON para preservar a estrutura original.</p>
+            <h4 class="crud-section__title">Arrays e Documentos JSON</h4>
+            <p class="crud-section__hint">Campos com arrays e documentos complexos, preservando as quebras do JSON original.</p>
             <div class="po-row">
               <po-textarea
-                p-label="Itens do Pedido (JSON)"
+                p-label="serv.infoCompl.gItemPed.xItemPed"
                 [(ngModel)]="jsonItensPedido"
                 [p-rows]="4"
                 class="po-lg-4">
               </po-textarea>
               <po-textarea
-                p-label="Documentos Deducao (JSON)"
+                p-label="valores.vDedRed.documentos.docDedRed"
                 [(ngModel)]="jsonDocDedRed"
                 [p-rows]="4"
                 class="po-lg-4">
               </po-textarea>
               <po-textarea
-                p-label="Documentos IBS/CBS (JSON)"
+                p-label="IBSCBS.valores.gReeRepRes.documentos"
                 [(ngModel)]="jsonDocumentosIbscbs"
                 [p-rows]="4"
                 class="po-lg-4">
               </po-textarea>
               <po-textarea
-                p-label="Referencias NFSe (JSON)"
+                p-label="IBSCBS.gRefNFSe.refNFSe"
                 [(ngModel)]="jsonRefsNfse"
                 [p-rows]="4"
                 class="po-lg-4">
