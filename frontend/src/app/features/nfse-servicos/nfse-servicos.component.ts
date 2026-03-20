@@ -97,17 +97,17 @@ import { CTribNacLookupService } from './nfse-ctribnac-lookup.service';
                 <p class="crud-section__hint">Preencha primeiro os campos essenciais para emissao da NFS-e.</p>
                 <div class="po-row">
                   <po-datepicker p-label="Data e Hora de Emissao" [(ngModel)]="form.infDPS_dhEmi" p-required="true" class="po-lg-3"></po-datepicker>
-                  <po-input p-label="Prestador CNPJ" [(ngModel)]="form.infDPS_prest_CNPJ" [p-required]="!form.infDPS_prest_CPF" p-mask="99.999.999/9999-99" class="po-lg-3"></po-input>
-                  <po-input p-label="Prestador CPF" [(ngModel)]="form.infDPS_prest_CPF" [p-required]="!form.infDPS_prest_CNPJ" p-mask="999.999.999-99" class="po-lg-3"></po-input>
-                  <po-input p-label="Tomador CNPJ" [(ngModel)]="form.infDPS_toma_CNPJ" [p-required]="!form.infDPS_toma_CPF" p-mask="99.999.999/9999-99" class="po-lg-3"></po-input>
-                  <po-input p-label="Tomador CPF" [(ngModel)]="form.infDPS_toma_CPF" [p-required]="!form.infDPS_toma_CNPJ" p-mask="999.999.999-99" class="po-lg-3"></po-input>
+                  <po-input p-label="Prestador CNPJ" [(ngModel)]="form.infDPS_prest_CNPJ" [p-required]="!form.infDPS_prest_CPF ? 'true' : 'false'" p-mask="99.999.999/9999-99" class="po-lg-3"></po-input>
+                  <po-input p-label="Prestador CPF" [(ngModel)]="form.infDPS_prest_CPF" [p-required]="!form.infDPS_prest_CNPJ ? 'true' : 'false'" p-mask="999.999.999-99" class="po-lg-3"></po-input>
+                  <po-input p-label="Tomador CNPJ" [(ngModel)]="form.infDPS_toma_CNPJ" [p-required]="!form.infDPS_toma_CPF ? 'true' : 'false'" p-mask="99.999.999/9999-99" class="po-lg-3"></po-input>
+                  <po-input p-label="Tomador CPF" [(ngModel)]="form.infDPS_toma_CPF" [p-required]="!form.infDPS_toma_CNPJ ? 'true' : 'false'" p-mask="999.999.999-99" class="po-lg-3"></po-input>
                   <po-input p-label="Tomador Nome/Razao" [(ngModel)]="form.infDPS_toma_xNome" p-required="true" class="po-lg-6"></po-input>
                   <po-input p-label="Municipio de Prestacao" [(ngModel)]="form.infDPS_serv_locPrest_cLocPrestacao" p-required="true" class="po-lg-3"></po-input>
                   <po-lookup
                     p-label="Cod. Tributacao Nacional"
                     [p-filter-service]="cTribNacLookupService"
                     [(ngModel)]="form.infDPS_serv_cServ_cTribNac"
-                    p-required="true"
+                    [p-required]="true"
                     p-field-label="descricao"
                     p-field-value="codigo"
                     class="po-lg-3">
@@ -116,7 +116,7 @@ import { CTribNacLookupService } from './nfse-ctribnac-lookup.service';
                   <po-textarea
                     p-label="Descricao do Servico"
                     [(ngModel)]="form.infDPS_serv_cServ_xDescServ"
-                    p-required="true"
+                    [p-required]="true"
                     [p-rows]="3"
                     class="po-lg-12">
                   </po-textarea>
@@ -125,7 +125,7 @@ import { CTribNacLookupService } from './nfse-ctribnac-lookup.service';
                     [ngModel]="form.infDPS_serv_cServ_cNatOp"
                     (ngModelChange)="form.infDPS_serv_cServ_cNatOp = $event"
                     [p-options]="opcoesCNatOp"
-                    p-required="true"
+                    [p-required]="true"
                     class="po-lg-3">
                   </po-select>
                   <po-select
@@ -133,7 +133,7 @@ import { CTribNacLookupService } from './nfse-ctribnac-lookup.service';
                     [ngModel]="form.infDPS_serv_cServ_cSitTrib"
                     (ngModelChange)="form.infDPS_serv_cServ_cSitTrib = $event"
                     [p-options]="opcoesCsitTrib"
-                    p-required="true"
+                    [p-required]="true"
                     class="po-lg-3">
                   </po-select>
                   <po-decimal p-label="Valor Servico" [(ngModel)]="form.infDPS_valores_vServPrest_vServ" p-required="true" class="po-lg-3"></po-decimal>
