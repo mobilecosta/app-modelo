@@ -196,7 +196,7 @@ import { NfseServico } from '../../core/models/types';
 
           <section class="crud-section">
             <h4 class="crud-section__title">infDPS.serv</h4>
-            <p class="crud-section__hint">Campos dos blocos 'locPrest', 'cServ', 'comExt', 'lsadppu', 'obra', 'atvEvento', 'explRod' e 'infoCompl'.</p>
+            <p class="crud-section__hint">Campos dos blocos 'locPrest', 'cServ', 'comExt', 'lsadppu', 'explRod' e 'infoCompl'.</p>
             <div class="po-row">
               <po-input p-label="Municipio de Prestacao" [(ngModel)]="form.infDPS_serv_locPrest_cLocPrestacao" class="po-lg-3"></po-input>
               <po-input p-label="Pais de Prestacao" [(ngModel)]="form.infDPS_serv_locPrest_cPaisPrestacao" class="po-lg-3"></po-input>
@@ -220,36 +220,6 @@ import { NfseServico } from '../../core/models/types';
               <po-number p-label="Objeto (LSADPPU)" [(ngModel)]="form.infDPS_serv_lsadppu_objeto" class="po-lg-3"></po-number>
               <po-input p-label="Extensao (LSADPPU)" [(ngModel)]="form.infDPS_serv_lsadppu_extensao" class="po-lg-3"></po-input>
               <po-input p-label="Numero de Postes" [(ngModel)]="form.infDPS_serv_lsadppu_nPostes" class="po-lg-3"></po-input>
-              <po-divider p-label="Obra" class="po-xl-12 po-lg-12 po-md-12 po-sm-12"></po-divider>
-              <po-input p-label="Insc. Imob. Fisc. (Obra)" [(ngModel)]="form.infDPS_serv_obra_inscImobFisc" class="po-lg-3"></po-input>
-              <po-input p-label="Codigo da Obra" [(ngModel)]="form.infDPS_serv_obra_cObra" class="po-lg-3"></po-input>
-              <po-input p-label="CIB da Obra" [(ngModel)]="form.infDPS_serv_obra_cCIB" class="po-lg-3"></po-input>
-              <po-input p-label="CEP (Obra)" [(ngModel)]="form.infDPS_serv_obra_end_CEP" p-mask="99999-999" class="po-lg-3"></po-input>
-              <po-input p-label="Cod. Postal Ext. (Obra)" [(ngModel)]="form.infDPS_serv_obra_end_endExt_cEndPost" class="po-lg-3"></po-input>
-              <po-input p-label="Cidade Ext. (Obra)" [(ngModel)]="form.infDPS_serv_obra_end_endExt_xCidade" class="po-lg-3"></po-input>
-              <po-input p-label="Estado Ext. (Obra)" [(ngModel)]="form.infDPS_serv_obra_end_endExt_xEstProvReg" class="po-lg-3"></po-input>
-              <po-input p-label="Logradouro (Obra)" [(ngModel)]="form.infDPS_serv_obra_end_xLgr" class="po-lg-4"></po-input>
-              <po-input p-label="Tipo Logra. (Obra)" [(ngModel)]="form.infDPS_serv_obra_end_tpLgr" class="po-lg-2"></po-input>
-              <po-input p-label="Numero (Obra)" [(ngModel)]="form.infDPS_serv_obra_end_nro" class="po-lg-2"></po-input>
-              <po-input p-label="Complemento (Obra)" [(ngModel)]="form.infDPS_serv_obra_end_xCpl" class="po-lg-3"></po-input>
-              <po-input p-label="Bairro (Obra)" [(ngModel)]="form.infDPS_serv_obra_end_xBairro" class="po-lg-3"></po-input>
-              
-              <po-divider p-label="Evento" class="po-xl-12 po-lg-12 po-md-12 po-sm-12"></po-divider>
-              
-              <po-input p-label="Nome do Evento" [(ngModel)]="form.infDPS_serv_atvEvento_xNome" class="po-lg-4"></po-input>
-              <po-input p-label="ID Ativ. do Evento" [(ngModel)]="form.infDPS_serv_atvEvento_idAtvEvt" class="po-lg-4"></po-input>
-              <po-input p-label="ID do Evento" [(ngModel)]="form.infDPS_serv_atvEvento_id" class="po-lg-4"></po-input>
-              <po-input p-label="Data Inic. do Evento" [(ngModel)]="form.infDPS_serv_atvEvento_dtIni" class="po-lg-3"></po-input>
-              <po-input p-label="Data Fim do Evento" [(ngModel)]="form.infDPS_serv_atvEvento_dtFim" class="po-lg-3"></po-input>
-              <po-input p-label="CEP (Evento)" [(ngModel)]="form.infDPS_serv_atvEvento_end_CEP" p-mask="99999-999" class="po-lg-3"></po-input>
-              <po-input p-label="Cod. Postal Ext. (Evento)" [(ngModel)]="form.infDPS_serv_atvEvento_end_endExt_cEndPost" class="po-lg-3"></po-input>
-              <po-input p-label="Cidade Ext. (Evento)" [(ngModel)]="form.infDPS_serv_atvEvento_end_endExt_xCidade" class="po-lg-3"></po-input>
-              <po-input p-label="Estado Ext. (Evento)" [(ngModel)]="form.infDPS_serv_atvEvento_end_endExt_xEstProvReg" class="po-lg-3"></po-input>
-              <po-input p-label="Logradouro (Evento)" [(ngModel)]="form.infDPS_serv_atvEvento_end_xLgr" class="po-lg-4"></po-input>
-              <po-input p-label="Tipo Logra. (Evento)" [(ngModel)]="form.infDPS_serv_atvEvento_end_tpLgr" class="po-lg-2"></po-input>
-              <po-input p-label="Numero (Evento)" [(ngModel)]="form.infDPS_serv_atvEvento_end_nro" class="po-lg-2"></po-input>
-              <po-input p-label="Complemento (Evento)" [(ngModel)]="form.infDPS_serv_atvEvento_end_xCpl" class="po-lg-3"></po-input>
-              <po-input p-label="Bairro (Evento)" [(ngModel)]="form.infDPS_serv_atvEvento_end_xBairro" class="po-lg-3"></po-input>
               <po-input p-label="Categ. Veiculo (Pedagio)" [(ngModel)]="form.infDPS_serv_explRod_categVeic" class="po-lg-3"></po-input>
               <po-input p-label="Numero de Eixos" [(ngModel)]="form.infDPS_serv_explRod_nEixos" class="po-lg-3"></po-input>
               <po-number p-label="Rodagem" [(ngModel)]="form.infDPS_serv_explRod_rodagem" class="po-lg-3"></po-number>
@@ -267,14 +237,54 @@ import { NfseServico } from '../../core/models/types';
                 class="po-lg-12">
               </po-textarea>
               <po-textarea
-                p-label="Descricao do Evento"
-                [(ngModel)]="form.infDPS_serv_atvEvento_desc"
+                p-label="Informacoes Complementares"
+                [(ngModel)]="form.infDPS_serv_infoCompl_xInfComp"
                 [p-rows]="3"
                 class="po-lg-12">
               </po-textarea>
+            </div>
+          </section>
+
+          <section class="crud-section">
+            <h4 class="crud-section__title">Obra</h4>
+            <p class="crud-section__hint">Campos de obra.</p>
+            <div class="po-row">
+              <po-input p-label="Insc. Imob. Fisc. (Obra)" [(ngModel)]="form.infDPS_serv_obra_inscImobFisc" class="po-lg-3"></po-input>
+              <po-input p-label="Codigo da Obra" [(ngModel)]="form.infDPS_serv_obra_cObra" class="po-lg-3"></po-input>
+              <po-input p-label="CIB da Obra" [(ngModel)]="form.infDPS_serv_obra_cCIB" class="po-lg-3"></po-input>
+              <po-input p-label="CEP (Obra)" [(ngModel)]="form.infDPS_serv_obra_end_CEP" p-mask="99999-999" class="po-lg-3"></po-input>
+              <po-input p-label="Cod. Postal Ext. (Obra)" [(ngModel)]="form.infDPS_serv_obra_end_endExt_cEndPost" class="po-lg-3"></po-input>
+              <po-input p-label="Cidade Ext. (Obra)" [(ngModel)]="form.infDPS_serv_obra_end_endExt_xCidade" class="po-lg-3"></po-input>
+              <po-input p-label="Estado Ext. (Obra)" [(ngModel)]="form.infDPS_serv_obra_end_endExt_xEstProvReg" class="po-lg-3"></po-input>
+              <po-input p-label="Logradouro (Obra)" [(ngModel)]="form.infDPS_serv_obra_end_xLgr" class="po-lg-4"></po-input>
+              <po-input p-label="Tipo Logra. (Obra)" [(ngModel)]="form.infDPS_serv_obra_end_tpLgr" class="po-lg-2"></po-input>
+              <po-input p-label="Numero (Obra)" [(ngModel)]="form.infDPS_serv_obra_end_nro" class="po-lg-2"></po-input>
+              <po-input p-label="Complemento (Obra)" [(ngModel)]="form.infDPS_serv_obra_end_xCpl" class="po-lg-3"></po-input>
+              <po-input p-label="Bairro (Obra)" [(ngModel)]="form.infDPS_serv_obra_end_xBairro" class="po-lg-3"></po-input>
+            </div>
+          </section>
+
+          <section class="crud-section">
+            <h4 class="crud-section__title">infDPS.serv.atvEvento</h4>
+            <p class="crud-section__hint">Campos de evento.</p>
+            <div class="po-row">
+              <po-input p-label="Nome do Evento" [(ngModel)]="form.infDPS_serv_atvEvento_xNome" class="po-lg-4"></po-input>
+              <po-input p-label="ID Ativ. do Evento" [(ngModel)]="form.infDPS_serv_atvEvento_idAtvEvt" class="po-lg-4"></po-input>
+              <po-input p-label="ID do Evento" [(ngModel)]="form.infDPS_serv_atvEvento_id" class="po-lg-4"></po-input>
+              <po-input p-label="Data Inic. do Evento" [(ngModel)]="form.infDPS_serv_atvEvento_dtIni" class="po-lg-3"></po-input>
+              <po-input p-label="Data Fim do Evento" [(ngModel)]="form.infDPS_serv_atvEvento_dtFim" class="po-lg-3"></po-input>
+              <po-input p-label="CEP (Evento)" [(ngModel)]="form.infDPS_serv_atvEvento_end_CEP" p-mask="99999-999" class="po-lg-3"></po-input>
+              <po-input p-label="Cod. Postal Ext. (Evento)" [(ngModel)]="form.infDPS_serv_atvEvento_end_endExt_cEndPost" class="po-lg-3"></po-input>
+              <po-input p-label="Cidade Ext. (Evento)" [(ngModel)]="form.infDPS_serv_atvEvento_end_endExt_xCidade" class="po-lg-3"></po-input>
+              <po-input p-label="Estado Ext. (Evento)" [(ngModel)]="form.infDPS_serv_atvEvento_end_endExt_xEstProvReg" class="po-lg-3"></po-input>
+              <po-input p-label="Logradouro (Evento)" [(ngModel)]="form.infDPS_serv_atvEvento_end_xLgr" class="po-lg-4"></po-input>
+              <po-input p-label="Tipo Logra. (Evento)" [(ngModel)]="form.infDPS_serv_atvEvento_end_tpLgr" class="po-lg-2"></po-input>
+              <po-input p-label="Numero (Evento)" [(ngModel)]="form.infDPS_serv_atvEvento_end_nro" class="po-lg-2"></po-input>
+              <po-input p-label="Complemento (Evento)" [(ngModel)]="form.infDPS_serv_atvEvento_end_xCpl" class="po-lg-3"></po-input>
+              <po-input p-label="Bairro (Evento)" [(ngModel)]="form.infDPS_serv_atvEvento_end_xBairro" class="po-lg-3"></po-input>
               <po-textarea
-                p-label="Informacoes Complementares"
-                [(ngModel)]="form.infDPS_serv_infoCompl_xInfComp"
+                p-label="Descricao do Evento"
+                [(ngModel)]="form.infDPS_serv_atvEvento_desc"
                 [p-rows]="3"
                 class="po-lg-12">
               </po-textarea>
