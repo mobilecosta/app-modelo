@@ -16,6 +16,7 @@ import {
 } from '@po-ui/ng-components';
 import { ApiService } from '../../core/services/api.service';
 import { NfseServico } from '../../core/models/types';
+import { CTribNacLookupService } from './nfse-ctribnac-lookup.service';
 
 @Component({
   selector: 'app-nfse-servicos',
@@ -185,7 +186,14 @@ import { NfseServico } from '../../core/models/types';
             <div class="po-row">
               <po-input p-label="Municipio de Prestacao" [(ngModel)]="form.infDPS_serv_locPrest_cLocPrestacao" class="po-lg-3"></po-input>
               <po-input p-label="Pais de Prestacao" [(ngModel)]="form.infDPS_serv_locPrest_cPaisPrestacao" class="po-lg-3"></po-input>
-              <po-input p-label="Cod. Tributacao Nacional" [(ngModel)]="form.infDPS_serv_cServ_cTribNac" class="po-lg-3"></po-input>
+              <po-lookup
+                p-label="Cod. Tributacao Nacional"
+                [p-filter-service]="cTribNacLookupService"
+                [(ngModel)]="form.infDPS_serv_cServ_cTribNac"
+                p-field-label="descricao"
+                p-field-value="codigo"
+                class="po-lg-3">
+              </po-lookup>
               <po-input p-label="Cod. Tributacao Municipal" [(ngModel)]="form.infDPS_serv_cServ_cTribMun" class="po-lg-3"></po-input>
               <po-input p-label="CNAE" [(ngModel)]="form.infDPS_serv_cServ_CNAE" class="po-lg-3"></po-input>
               <po-input p-label="NBS" [(ngModel)]="form.infDPS_serv_cServ_cNBS" class="po-lg-3"></po-input>
@@ -740,6 +748,7 @@ export class NfseServicosComponent implements OnInit {
 
   constructor(
     private apiService: ApiService,
+    public cTribNacLookupService: CTribNacLookupService,
     private notificacao: PoNotificationService
   ) { }
 
