@@ -110,11 +110,23 @@ import { NfseServico } from '../../core/models/types';
                 class="po-lg-3">
               </po-select>
               <po-input p-label="Referencia" [(ngModel)]="form.referencia" class="po-lg-3"></po-input>
-              <po-number p-label="Tipo de Ambiente" [(ngModel)]="form.infDPS_tpAmb" class="po-lg-3"></po-number>
+              <po-select
+                p-label="Tipo de Ambiente"
+                [ngModel]="form.infDPS_tpAmb"
+                (ngModelChange)="form.infDPS_tpAmb = $event"
+                [p-options]="opcoesTpAmb"
+                class="po-lg-3">
+              </po-select>
               <po-datepicker p-label="Data e Hora de Emissao" [(ngModel)]="form.infDPS_dhEmi" class="po-lg-3"></po-datepicker>
               <po-input p-label="Versao do Aplicativo" [(ngModel)]="form.infDPS_verAplic" class="po-lg-3"></po-input>
               <po-datepicker p-label="Data de Competencia" [(ngModel)]="form.infDPS_dCompet" class="po-lg-3"></po-datepicker>
-              <po-number p-label="Motivo Emissao Tomador/Interm." [(ngModel)]="form.infDPS_cMotivoEmisTI" class="po-lg-3"></po-number>
+              <po-select
+                p-label="Motivo Emissao Tomador/Interm."
+                [ngModel]="form.infDPS_cMotivoEmisTI"
+                (ngModelChange)="form.infDPS_cMotivoEmisTI = $event"
+                [p-options]="opcoesMotivoEmisTI"
+                class="po-lg-3">
+              </po-select>
               <po-input p-label="Chave da NFS-e Rejeitada" [(ngModel)]="form.infDPS_chNFSeRej" class="po-lg-3"></po-input>
               <po-switch p-label="Ativo" [(ngModel)]="form.ativo" class="po-lg-3"></po-switch>
             </div>
@@ -126,7 +138,13 @@ import { NfseServico } from '../../core/models/types';
             <div class="po-row">
               <po-input p-label="Prestador CNPJ" [(ngModel)]="form.infDPS_prest_CNPJ" p-mask="99.999.999/9999-99" class="po-lg-3"></po-input>
               <po-input p-label="Prestador CPF" [(ngModel)]="form.infDPS_prest_CPF" p-mask="999.999.999-99" class="po-lg-3"></po-input>
-              <po-number p-label="Regime Especial de Tributacao" [(ngModel)]="form.infDPS_prest_regTrib_regEspTrib" class="po-lg-3"></po-number>
+              <po-select
+                p-label="Regime Especial de Tributacao"
+                [ngModel]="form.infDPS_prest_regTrib_regEspTrib"
+                (ngModelChange)="form.infDPS_prest_regTrib_regEspTrib = $event"
+                [p-options]="opcoesRegEspTrib"
+                class="po-lg-3">
+              </po-select>
             </div>
           </section>
 
@@ -171,10 +189,34 @@ import { NfseServico } from '../../core/models/types';
               <po-input p-label="Cod. Tributacao Municipal" [(ngModel)]="form.infDPS_serv_cServ_cTribMun" class="po-lg-3"></po-input>
               <po-input p-label="CNAE" [(ngModel)]="form.infDPS_serv_cServ_CNAE" class="po-lg-3"></po-input>
               <po-input p-label="NBS" [(ngModel)]="form.infDPS_serv_cServ_cNBS" class="po-lg-3"></po-input>
-              <po-input p-label="Natureza da Operacao" [(ngModel)]="form.infDPS_serv_cServ_cNatOp" class="po-lg-3"></po-input>
-              <po-input p-label="Situacao Tributaria" [(ngModel)]="form.infDPS_serv_cServ_cSitTrib" class="po-lg-3"></po-input>
-              <po-number p-label="Modo de Prestacao (Comex)" [(ngModel)]="form.infDPS_serv_comExt_mdPrestacao" class="po-lg-3"></po-number>
-              <po-number p-label="Vinculo Prestacional" [(ngModel)]="form.infDPS_serv_comExt_vincPrest" class="po-lg-3"></po-number>
+              <po-select
+                p-label="Natureza da Operacao"
+                [ngModel]="form.infDPS_serv_cServ_cNatOp"
+                (ngModelChange)="form.infDPS_serv_cServ_cNatOp = $event"
+                [p-options]="opcoesCNatOp"
+                class="po-lg-3">
+              </po-select>
+              <po-select
+                p-label="Situacao Tributaria"
+                [ngModel]="form.infDPS_serv_cServ_cSitTrib"
+                (ngModelChange)="form.infDPS_serv_cServ_cSitTrib = $event"
+                [p-options]="opcoesCsitTrib"
+                class="po-lg-3">
+              </po-select>
+              <po-select
+                p-label="Modo de Prestacao (Comex)"
+                [ngModel]="form.infDPS_serv_comExt_mdPrestacao"
+                (ngModelChange)="form.infDPS_serv_comExt_mdPrestacao = $event"
+                [p-options]="opcoesMdPrestacao"
+                class="po-lg-3">
+              </po-select>
+              <po-select
+                p-label="Vinculo Prestacional"
+                [ngModel]="form.infDPS_serv_comExt_vincPrest"
+                (ngModelChange)="form.infDPS_serv_comExt_vincPrest = $event"
+                [p-options]="opcoesVincPrest"
+                class="po-lg-3">
+              </po-select>
               <po-input p-label="Tipo de Moeda" [(ngModel)]="form.infDPS_serv_comExt_tpMoeda" class="po-lg-3"></po-input>
               <po-decimal p-label="Valor Servico (Moeda Ext.)" [(ngModel)]="form.infDPS_serv_comExt_vServMoeda" class="po-lg-3"></po-decimal>
               <po-input p-label="Mec. Apoio (Prestador)" [(ngModel)]="form.infDPS_serv_comExt_mecAFComexP" class="po-lg-3"></po-input>
@@ -223,16 +265,46 @@ import { NfseServico } from '../../core/models/types';
               <po-decimal p-label="Desc. Cond." [(ngModel)]="form.infDPS_valores_vDescCondIncond_vDescCond" class="po-lg-3"></po-decimal>
               <po-decimal p-label="Perc. Ded./Red." [(ngModel)]="form.infDPS_valores_vDedRed_pDR" class="po-lg-3"></po-decimal>
               <po-decimal p-label="Valor Ded./Red." [(ngModel)]="form.infDPS_valores_vDedRed_vDR" class="po-lg-3"></po-decimal>
-              <po-decimal p-label="Tributacao ISSQN" [(ngModel)]="form.infDPS_valores_trib_tribMun_tribISSQN" class="po-lg-3"></po-decimal>
+              <po-select
+                p-label="Tributacao ISSQN"
+                [ngModel]="form.infDPS_valores_trib_tribMun_tribISSQN"
+                (ngModelChange)="form.infDPS_valores_trib_tribMun_tribISSQN = $event"
+                [p-options]="opcoesTribISSQN"
+                class="po-lg-3">
+              </po-select>
               <po-input p-label="Pais de Resultado" [(ngModel)]="form.infDPS_valores_trib_tribMun_cPaisResult" class="po-lg-3"></po-input>
-              <po-decimal p-label="Tipo de Imunidade" [(ngModel)]="form.infDPS_valores_trib_tribMun_tpImunidade" class="po-lg-3"></po-decimal>
-              <po-decimal p-label="Tipo de Suspensao" [(ngModel)]="form.infDPS_valores_trib_tribMun_exigSusp_tpSusp" class="po-lg-3"></po-decimal>
+              <po-select
+                p-label="Tipo de Imunidade"
+                [ngModel]="form.infDPS_valores_trib_tribMun_tpImunidade"
+                (ngModelChange)="form.infDPS_valores_trib_tribMun_tpImunidade = $event"
+                [p-options]="opcoesTpImunidade"
+                class="po-lg-3">
+              </po-select>
+              <po-select
+                p-label="Tipo de Suspensao"
+                [ngModel]="form.infDPS_valores_trib_tribMun_exigSusp_tpSusp"
+                (ngModelChange)="form.infDPS_valores_trib_tribMun_exigSusp_tpSusp = $event"
+                [p-options]="opcoesTpSusp"
+                class="po-lg-3">
+              </po-select>
               <po-input p-label="Numero do Processo" [(ngModel)]="form.infDPS_valores_trib_tribMun_exigSusp_nProcesso" class="po-lg-3"></po-input>
-              <po-decimal p-label="Tipo Benef. Mun." [(ngModel)]="form.infDPS_valores_trib_tribMun_BM_tpBM" class="po-lg-3"></po-decimal>
+              <po-select
+                p-label="Tipo Benef. Mun."
+                [ngModel]="form.infDPS_valores_trib_tribMun_BM_tpBM"
+                (ngModelChange)="form.infDPS_valores_trib_tribMun_BM_tpBM = $event"
+                [p-options]="opcoesTpBM"
+                class="po-lg-3">
+              </po-select>
               <po-input p-label="Numero Benef. Mun." [(ngModel)]="form.infDPS_valores_trib_tribMun_BM_nBM" class="po-lg-3"></po-input>
               <po-decimal p-label="Valor Reducao BM" [(ngModel)]="form.infDPS_valores_trib_tribMun_BM_vRedBCBM" class="po-lg-3"></po-decimal>
               <po-decimal p-label="Perc. Reducao BM" [(ngModel)]="form.infDPS_valores_trib_tribMun_BM_pRedBCBM" class="po-lg-3"></po-decimal>
-              <po-decimal p-label="Tipo Retencao ISSQN" [(ngModel)]="form.infDPS_valores_trib_tribMun_tpRetISSQN" class="po-lg-3"></po-decimal>
+              <po-select
+                p-label="Tipo Retencao ISSQN"
+                [ngModel]="form.infDPS_valores_trib_tribMun_tpRetISSQN"
+                (ngModelChange)="form.infDPS_valores_trib_tribMun_tpRetISSQN = $event"
+                [p-options]="opcoesTpRetISSQN"
+                class="po-lg-3">
+              </po-select>
               <po-decimal p-label="Aliquota ISS" [(ngModel)]="form.infDPS_valores_trib_tribMun_pAliq" class="po-lg-3"></po-decimal>
               <po-input p-label="Municipio Incidencia" [(ngModel)]="form.infDPS_valores_trib_tribMun_cLocIncid" class="po-lg-3"></po-input>
               <po-decimal p-label="Base ISS" [(ngModel)]="form.infDPS_valores_trib_tribMun_vBC" class="po-lg-3"></po-decimal>
@@ -244,7 +316,13 @@ import { NfseServico } from '../../core/models/types';
               <po-decimal p-label="Aliq. COFINS" [(ngModel)]="form.infDPS_valores_trib_tribFed_piscofins_pAliqCofins" class="po-lg-3"></po-decimal>
               <po-decimal p-label="Valor PIS" [(ngModel)]="form.infDPS_valores_trib_tribFed_piscofins_vPis" class="po-lg-3"></po-decimal>
               <po-decimal p-label="Valor COFINS" [(ngModel)]="form.infDPS_valores_trib_tribFed_piscofins_vCofins" class="po-lg-3"></po-decimal>
-              <po-decimal p-label="Tipo Ret. PIS/COFINS" [(ngModel)]="form.infDPS_valores_trib_tribFed_piscofins_tpRetPisCofins" class="po-lg-3"></po-decimal>
+              <po-select
+                p-label="Tipo Ret. PIS/COFINS"
+                [ngModel]="form.infDPS_valores_trib_tribFed_piscofins_tpRetPisCofins"
+                (ngModelChange)="form.infDPS_valores_trib_tribFed_piscofins_tpRetPisCofins = $event"
+                [p-options]="opcoesTpRetPisCofins"
+                class="po-lg-3">
+              </po-select>
               <po-decimal p-label="Ret. CP" [(ngModel)]="form.infDPS_valores_trib_tribFed_vRetCP" class="po-lg-3"></po-decimal>
               <po-decimal p-label="Ret. IRRF" [(ngModel)]="form.infDPS_valores_trib_tribFed_vRetIRRF" class="po-lg-3"></po-decimal>
               <po-decimal p-label="Ret. CSLL" [(ngModel)]="form.infDPS_valores_trib_tribFed_vRetCSLL" class="po-lg-3"></po-decimal>
@@ -263,12 +341,42 @@ import { NfseServico } from '../../core/models/types';
             <h4 class="crud-section__title">infDPS.IBSCBS</h4>
             <p class="crud-section__hint">Campos dos blocos 'gRefNFSe' e 'valores.trib.gIBSCBS'.</p>
             <div class="po-row">
-              <po-decimal p-label="Finalidade da NFS-e" [(ngModel)]="form.infDPS_IBSCBS_finNFSe" class="po-lg-3"></po-decimal>
-              <po-decimal p-label="Consumidor Final" [(ngModel)]="form.infDPS_IBSCBS_indFinal" class="po-lg-3"></po-decimal>
+              <po-select
+                p-label="Finalidade da NFS-e"
+                [ngModel]="form.infDPS_IBSCBS_finNFSe"
+                (ngModelChange)="form.infDPS_IBSCBS_finNFSe = $event"
+                [p-options]="opcoesFinNFSe"
+                class="po-lg-3">
+              </po-select>
+              <po-select
+                p-label="Consumidor Final"
+                [ngModel]="form.infDPS_IBSCBS_indFinal"
+                (ngModelChange)="form.infDPS_IBSCBS_indFinal = $event"
+                [p-options]="opcoesSimNao"
+                class="po-lg-3">
+              </po-select>
               <po-input p-label="Indicador Operacao" [(ngModel)]="form.infDPS_IBSCBS_cIndOp" class="po-lg-3"></po-input>
-              <po-decimal p-label="Tipo de Operacao" [(ngModel)]="form.infDPS_IBSCBS_tpOper" class="po-lg-3"></po-decimal>
-              <po-decimal p-label="Tipo Ente Gov" [(ngModel)]="form.infDPS_IBSCBS_tpEnteGov" class="po-lg-3"></po-decimal>
-              <po-decimal p-label="Ind. Destino" [(ngModel)]="form.infDPS_IBSCBS_indDest" class="po-lg-3"></po-decimal>
+              <po-select
+                p-label="Tipo de Operacao"
+                [ngModel]="form.infDPS_IBSCBS_tpOper"
+                (ngModelChange)="form.infDPS_IBSCBS_tpOper = $event"
+                [p-options]="opcoesTpOper"
+                class="po-lg-3">
+              </po-select>
+              <po-select
+                p-label="Tipo Ente Gov"
+                [ngModel]="form.infDPS_IBSCBS_tpEnteGov"
+                (ngModelChange)="form.infDPS_IBSCBS_tpEnteGov = $event"
+                [p-options]="opcoesTpEnteGov"
+                class="po-lg-3">
+              </po-select>
+              <po-select
+                p-label="Ind. Destino"
+                [ngModel]="form.infDPS_IBSCBS_indDest"
+                (ngModelChange)="form.infDPS_IBSCBS_indDest = $event"
+                [p-options]="opcoesIndDest"
+                class="po-lg-3">
+              </po-select>
               <po-input p-label="CST (IBS/CBS)" [(ngModel)]="form.infDPS_IBSCBS_valores_trib_gIBSCBS_CST" class="po-lg-3"></po-input>
               <po-input p-label="Class. Tributaria (IBS/CBS)" [(ngModel)]="form.infDPS_IBSCBS_valores_trib_gIBSCBS_cClassTrib" class="po-lg-3"></po-input>
               <po-input p-label="Credito Presumido" [(ngModel)]="form.infDPS_IBSCBS_valores_trib_gIBSCBS_cCredPres" class="po-lg-3"></po-input>
@@ -481,6 +589,125 @@ export class NfseServicosComponent implements OnInit {
   opcoesAmbiente: PoSelectOption[] = [
     { label: 'Homologacao', value: 'homologacao' },
     { label: 'Producao', value: 'producao' }
+  ];
+
+  opcoesTpAmb: PoSelectOption[] = [
+    { label: '1 - Producao', value: 1 },
+    { label: '2 - Homologacao', value: 2 }
+  ];
+
+  opcoesMotivoEmisTI: PoSelectOption[] = [
+    { label: '1 - Prestador optou por emitir pelo tomador/interm.', value: 1 },
+    { label: '2 - Tomador/interm. obrigado a emitir', value: 2 }
+  ];
+
+  opcoesRegEspTrib: PoSelectOption[] = [
+    { label: '0 - Nenhum', value: 0 },
+    { label: '1 - Micro Empresa Municipal', value: 1 },
+    { label: '2 - Estimativa', value: 2 },
+    { label: '3 - Sociedade de Profissionais', value: 3 },
+    { label: '4 - Cooperativa', value: 4 },
+    { label: '5 - Micro Empresa EPP (Simples Nacional)', value: 5 },
+    { label: '6 - Micro Empresa EPP (fixo)', value: 6 },
+    { label: '7 - Produtor Rural Pessoa Fisica', value: 7 }
+  ];
+
+  opcoesCNatOp: PoSelectOption[] = [
+    { label: '1 - Tributacao no municipio', value: '1' },
+    { label: '2 - Tributacao fora do municipio', value: '2' },
+    { label: '3 - Isencao', value: '3' },
+    { label: '4 - Imune', value: '4' },
+    { label: '5 - Exigibilidade suspensa por decisao judicial', value: '5' },
+    { label: '6 - Exigibilidade suspensa por proc. administrativo', value: '6' }
+  ];
+
+  opcoesCsitTrib: PoSelectOption[] = [
+    { label: 'N - Normal', value: 'N' },
+    { label: 'R - Retido', value: 'R' },
+    { label: 'S - Substituido', value: 'S' },
+    { label: 'I - Isento', value: 'I' }
+  ];
+
+  opcoesTribISSQN: PoSelectOption[] = [
+    { label: '1 - Tributavel', value: 1 },
+    { label: '2 - Exigibilidade Suspensa - Judicial', value: 2 },
+    { label: '3 - Exigibilidade Suspensa - Adm.', value: 3 },
+    { label: '4 - Exportacao de Servico', value: 4 },
+    { label: '5 - Imune', value: 5 },
+    { label: '6 - Isenta', value: 6 },
+    { label: '7 - Nao Incidencia no municipio', value: 7 },
+    { label: '8 - Nao Tributavel', value: 8 }
+  ];
+
+  opcoesTpImunidade: PoSelectOption[] = [
+    { label: '1 - Patrimonio, renda ou servicos dos entes politicos', value: 1 },
+    { label: '2 - Entidades de assistencia social', value: 2 },
+    { label: '3 - Partidos politicos e fundacoes', value: 3 },
+    { label: '4 - Entidades sindicais dos trabalhadores', value: 4 },
+    { label: '5 - Instituicoes de educacao e assistencia social', value: 5 }
+  ];
+
+  opcoesTpSusp: PoSelectOption[] = [
+    { label: '1 - Decisao judicial', value: 1 },
+    { label: '2 - Procedimento administrativo', value: 2 }
+  ];
+
+  opcoesTpBM: PoSelectOption[] = [
+    { label: '1 - Beneficio Municipal', value: 1 },
+    { label: '2 - Reducao da base de calculo', value: 2 },
+    { label: '3 - Desconto incondicional', value: 3 }
+  ];
+
+  opcoesTpRetISSQN: PoSelectOption[] = [
+    { label: '1 - Retencao Normal', value: 1 },
+    { label: '2 - Retencao Substituicao Tributaria', value: 2 },
+    { label: '3 - Retencao por Indicacao do Prestador', value: 3 }
+  ];
+
+  opcoesTpRetPisCofins: PoSelectOption[] = [
+    { label: '0 - Sem Retencao', value: 0 },
+    { label: '1 - Retencao na Fonte', value: 1 }
+  ];
+
+  opcoesFinNFSe: PoSelectOption[] = [
+    { label: '1 - Normal', value: 1 },
+    { label: '2 - Complementar', value: 2 },
+    { label: '3 - Ajuste', value: 3 },
+    { label: '4 - Substituicao', value: 4 }
+  ];
+
+  opcoesSimNao: PoSelectOption[] = [
+    { label: '1 - Sim', value: 1 },
+    { label: '0 - Nao', value: 0 }
+  ];
+
+  opcoesTpOper: PoSelectOption[] = [
+    { label: '1 - Prestacao de servico a estabelecimento no pais', value: 1 },
+    { label: '2 - Prestacao de servico a consumidor final no pais', value: 2 },
+    { label: '3 - Exportacao de servico', value: 3 },
+    { label: '4 - Importacao de servico', value: 4 }
+  ];
+
+  opcoesTpEnteGov: PoSelectOption[] = [
+    { label: '1 - Uniao', value: 1 },
+    { label: '2 - Estado', value: 2 },
+    { label: '3 - Municipio', value: 3 }
+  ];
+
+  opcoesIndDest: PoSelectOption[] = [
+    { label: '1 - Dentro do estado de origem', value: 1 },
+    { label: '2 - Fora do estado de origem', value: 2 },
+    { label: '3 - Exterior', value: 3 }
+  ];
+
+  opcoesMdPrestacao: PoSelectOption[] = [
+    { label: '1 - Importacao', value: 1 },
+    { label: '2 - Exportacao', value: 2 }
+  ];
+
+  opcoesVincPrest: PoSelectOption[] = [
+    { label: '0 - Sem vinculo', value: 0 },
+    { label: '1 - Servico prestado a pessoa vinculada', value: 1 }
   ];
 
   colunas: PoTableColumn[] = [
