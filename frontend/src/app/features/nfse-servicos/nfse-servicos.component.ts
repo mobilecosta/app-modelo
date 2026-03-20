@@ -261,7 +261,7 @@ import { NfseServico } from '../../core/models/types';
 
           <section class="crud-section">
             <h4 class="crud-section__title">infDPS.IBSCBS</h4>
-            <p class="crud-section__hint">Campos dos blocos 'gRefNFSe', 'imovel' e 'valores.trib.gIBSCBS'.</p>
+            <p class="crud-section__hint">Campos dos blocos 'gRefNFSe' e 'valores.trib.gIBSCBS'.</p>
             <div class="po-row">
               <po-number p-label="Finalidade da NFS-e" [(ngModel)]="form.infDPS_IBSCBS_finNFSe" class="po-lg-3"></po-number>
               <po-number p-label="Consumidor Final" [(ngModel)]="form.infDPS_IBSCBS_indFinal" class="po-lg-3"></po-number>
@@ -269,20 +269,6 @@ import { NfseServico } from '../../core/models/types';
               <po-number p-label="Tipo de Operacao" [(ngModel)]="form.infDPS_IBSCBS_tpOper" class="po-lg-3"></po-number>
               <po-number p-label="Tipo Ente Gov" [(ngModel)]="form.infDPS_IBSCBS_tpEnteGov" class="po-lg-3"></po-number>
               <po-number p-label="Ind. Destino" [(ngModel)]="form.infDPS_IBSCBS_indDest" class="po-lg-3"></po-number>
-              
-              <po-divider p-label="Imovel" class="po-xl-12 po-lg-12 po-md-12 po-sm-12"></po-divider>
-              
-              <po-input p-label="Insc. Imob. Fisc. (Imovel)" [(ngModel)]="form.infDPS_IBSCBS_imovel_inscImobFisc" class="po-lg-3"></po-input>
-              <po-input p-label="CIB do Imovel" [(ngModel)]="form.infDPS_IBSCBS_imovel_cCIB" class="po-lg-3"></po-input>
-              <po-input p-label="CEP (Imovel)" [(ngModel)]="form.infDPS_IBSCBS_imovel_end_CEP" p-mask="99999-999" class="po-lg-3"></po-input>
-              <po-input p-label="Cod. Postal Ext. (Imovel)" [(ngModel)]="form.infDPS_IBSCBS_imovel_end_endExt_cEndPost" class="po-lg-3"></po-input>
-              <po-input p-label="Cidade Ext. (Imovel)" [(ngModel)]="form.infDPS_IBSCBS_imovel_end_endExt_xCidade" class="po-lg-3"></po-input>
-              <po-input p-label="Estado Ext. (Imovel)" [(ngModel)]="form.infDPS_IBSCBS_imovel_end_endExt_xEstProvReg" class="po-lg-3"></po-input>
-              <po-input p-label="Logradouro (Imovel)" [(ngModel)]="form.infDPS_IBSCBS_imovel_end_xLgr" class="po-lg-4"></po-input>
-              <po-input p-label="Tipo Logra. (Imovel)" [(ngModel)]="form.infDPS_IBSCBS_imovel_end_tpLgr" class="po-lg-2"></po-input>
-              <po-input p-label="Numero (Imovel)" [(ngModel)]="form.infDPS_IBSCBS_imovel_end_nro" class="po-lg-2"></po-input>
-              <po-input p-label="Complemento (Imovel)" [(ngModel)]="form.infDPS_IBSCBS_imovel_end_xCpl" class="po-lg-3"></po-input>
-              <po-input p-label="Bairro (Imovel)" [(ngModel)]="form.infDPS_IBSCBS_imovel_end_xBairro" class="po-lg-3"></po-input>
               <po-input p-label="CST (IBS/CBS)" [(ngModel)]="form.infDPS_IBSCBS_valores_trib_gIBSCBS_CST" class="po-lg-3"></po-input>
               <po-input p-label="Class. Tributaria (IBS/CBS)" [(ngModel)]="form.infDPS_IBSCBS_valores_trib_gIBSCBS_cClassTrib" class="po-lg-3"></po-input>
               <po-input p-label="Credito Presumido" [(ngModel)]="form.infDPS_IBSCBS_valores_trib_gIBSCBS_cCredPres" class="po-lg-3"></po-input>
@@ -441,6 +427,26 @@ import { NfseServico } from '../../core/models/types';
                   <po-input p-label="Bairro" [(ngModel)]="form.infDPS_interm_end_xBairro" class="po-lg-3"></po-input>
                   <po-input p-label="Fone" [(ngModel)]="form.infDPS_interm_fone" class="po-lg-3"></po-input>
                   <po-email p-label="Email" [(ngModel)]="form.infDPS_interm_email" class="po-lg-3"></po-email>
+                </div>
+              </section>
+            </po-tab>
+
+            <po-tab p-label="Imovel">
+              <section class="crud-section">
+                <h4 class="crud-section__title">infDPS.IBSCBS.imovel</h4>
+                <p class="crud-section__hint">Campos de imovel.</p>
+                <div class="po-row">
+                  <po-input p-label="Insc. Imob. Fisc." [(ngModel)]="form.infDPS_IBSCBS_imovel_inscImobFisc" class="po-lg-3"></po-input>
+                  <po-input p-label="CIB" [(ngModel)]="form.infDPS_IBSCBS_imovel_cCIB" class="po-lg-3"></po-input>
+                  <po-input p-label="CEP" [(ngModel)]="form.infDPS_IBSCBS_imovel_end_CEP" p-mask="99999-999" class="po-lg-3"></po-input>
+                  <po-input p-label="Cod. Postal Ext." [(ngModel)]="form.infDPS_IBSCBS_imovel_end_endExt_cEndPost" class="po-lg-3"></po-input>
+                  <po-input p-label="Cidade Ext." [(ngModel)]="form.infDPS_IBSCBS_imovel_end_endExt_xCidade" class="po-lg-3"></po-input>
+                  <po-input p-label="Estado Ext." [(ngModel)]="form.infDPS_IBSCBS_imovel_end_endExt_xEstProvReg" class="po-lg-3"></po-input>
+                  <po-input p-label="Logradouro" [(ngModel)]="form.infDPS_IBSCBS_imovel_end_xLgr" class="po-lg-4"></po-input>
+                  <po-input p-label="Tipo Logra." [(ngModel)]="form.infDPS_IBSCBS_imovel_end_tpLgr" class="po-lg-2"></po-input>
+                  <po-input p-label="Numero" [(ngModel)]="form.infDPS_IBSCBS_imovel_end_nro" class="po-lg-2"></po-input>
+                  <po-input p-label="Complemento" [(ngModel)]="form.infDPS_IBSCBS_imovel_end_xCpl" class="po-lg-3"></po-input>
+                  <po-input p-label="Bairro" [(ngModel)]="form.infDPS_IBSCBS_imovel_end_xBairro" class="po-lg-3"></po-input>
                 </div>
               </section>
             </po-tab>
