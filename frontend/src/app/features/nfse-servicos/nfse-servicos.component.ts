@@ -93,6 +93,63 @@ import { CTribNacLookupService } from './nfse-ctribnac-lookup.service';
           <po-tabs>
             <po-tab p-label="Principal" [p-active]="true">
               <section class="crud-section">
+                <h4 class="crud-section__title">Campos obrigatorios</h4>
+                <p class="crud-section__hint">Preencha primeiro os campos essenciais para emissao da NFS-e.</p>
+                <div class="po-row">
+                  <po-datepicker p-label="Data e Hora de Emissao" [(ngModel)]="form.infDPS_dhEmi" p-required="true" class="po-lg-3"></po-datepicker>
+                  <po-input p-label="Prestador CNPJ" [(ngModel)]="form.infDPS_prest_CNPJ" [p-required]="!form.infDPS_prest_CPF" p-mask="99.999.999/9999-99" class="po-lg-3"></po-input>
+                  <po-input p-label="Prestador CPF" [(ngModel)]="form.infDPS_prest_CPF" [p-required]="!form.infDPS_prest_CNPJ" p-mask="999.999.999-99" class="po-lg-3"></po-input>
+                  <po-input p-label="Tomador CNPJ" [(ngModel)]="form.infDPS_toma_CNPJ" [p-required]="!form.infDPS_toma_CPF" p-mask="99.999.999/9999-99" class="po-lg-3"></po-input>
+                  <po-input p-label="Tomador CPF" [(ngModel)]="form.infDPS_toma_CPF" [p-required]="!form.infDPS_toma_CNPJ" p-mask="999.999.999-99" class="po-lg-3"></po-input>
+                  <po-input p-label="Tomador Nome/Razao" [(ngModel)]="form.infDPS_toma_xNome" p-required="true" class="po-lg-6"></po-input>
+                  <po-input p-label="Municipio de Prestacao" [(ngModel)]="form.infDPS_serv_locPrest_cLocPrestacao" p-required="true" class="po-lg-3"></po-input>
+                  <po-lookup
+                    p-label="Cod. Tributacao Nacional"
+                    [p-filter-service]="cTribNacLookupService"
+                    [(ngModel)]="form.infDPS_serv_cServ_cTribNac"
+                    p-required="true"
+                    p-field-label="descricao"
+                    p-field-value="codigo"
+                    class="po-lg-3">
+                  </po-lookup>
+                  <po-input p-label="Cod. Tributacao Municipal" [(ngModel)]="form.infDPS_serv_cServ_cTribMun" p-required="true" class="po-lg-3"></po-input>
+                  <po-textarea
+                    p-label="Descricao do Servico"
+                    [(ngModel)]="form.infDPS_serv_cServ_xDescServ"
+                    p-required="true"
+                    [p-rows]="3"
+                    class="po-lg-12">
+                  </po-textarea>
+                  <po-select
+                    p-label="Natureza da Operacao"
+                    [ngModel]="form.infDPS_serv_cServ_cNatOp"
+                    (ngModelChange)="form.infDPS_serv_cServ_cNatOp = $event"
+                    [p-options]="opcoesCNatOp"
+                    p-required="true"
+                    class="po-lg-3">
+                  </po-select>
+                  <po-select
+                    p-label="Situacao Tributaria"
+                    [ngModel]="form.infDPS_serv_cServ_cSitTrib"
+                    (ngModelChange)="form.infDPS_serv_cServ_cSitTrib = $event"
+                    [p-options]="opcoesCsitTrib"
+                    p-required="true"
+                    class="po-lg-3">
+                  </po-select>
+                  <po-decimal p-label="Valor Servico" [(ngModel)]="form.infDPS_valores_vServPrest_vServ" p-required="true" class="po-lg-3"></po-decimal>
+                  <po-select
+                    p-label="Tributacao ISSQN"
+                    [ngModel]="form.infDPS_valores_trib_tribMun_tribISSQN"
+                    (ngModelChange)="form.infDPS_valores_trib_tribMun_tribISSQN = $event"
+                    [p-options]="opcoesTribISSQN"
+                    p-required="true"
+                    class="po-lg-3">
+                  </po-select>
+                  <po-decimal p-label="Valor Liquido" [(ngModel)]="form.infDPS_valores_trib_tribMun_vLiq" p-required="true" class="po-lg-3"></po-decimal>
+                </div>
+              </section>
+
+              <section class="crud-section">
                 <h4 class="crud-section__title">Raiz + infDPS</h4>
             <p class="crud-section__hint">Campos do nivel principal do JSON e atributos diretos do objeto infDPS.</p>
             <div class="po-row">
@@ -118,7 +175,6 @@ import { CTribNacLookupService } from './nfse-ctribnac-lookup.service';
                 [p-options]="opcoesTpAmb"
                 class="po-lg-3">
               </po-select>
-              <po-datepicker p-label="Data e Hora de Emissao" [(ngModel)]="form.infDPS_dhEmi" class="po-lg-3"></po-datepicker>
               <po-input p-label="Versao do Aplicativo" [(ngModel)]="form.infDPS_verAplic" class="po-lg-3"></po-input>
               <po-datepicker p-label="Data de Competencia" [(ngModel)]="form.infDPS_dCompet" class="po-lg-3"></po-datepicker>
               <po-select
@@ -137,8 +193,6 @@ import { CTribNacLookupService } from './nfse-ctribnac-lookup.service';
             <h4 class="crud-section__title">infDPS.prest</h4>
             <p class="crud-section__hint">Campos do prestador e do bloco 'regTrib'.</p>
             <div class="po-row">
-              <po-input p-label="Prestador CNPJ" [(ngModel)]="form.infDPS_prest_CNPJ" p-mask="99.999.999/9999-99" class="po-lg-3"></po-input>
-              <po-input p-label="Prestador CPF" [(ngModel)]="form.infDPS_prest_CPF" p-mask="999.999.999-99" class="po-lg-3"></po-input>
               <po-select
                 p-label="Regime Especial de Tributacao"
                 [ngModel]="form.infDPS_prest_regTrib_regEspTrib"
@@ -155,27 +209,24 @@ import { CTribNacLookupService } from './nfse-ctribnac-lookup.service';
             <div class="po-row">
               <po-input p-label="ID" [(ngModel)]="form.infDPS_toma_pessoa_id" class="po-lg-3"></po-input>
               <po-switch p-label="Orgao Publico" [(ngModel)]="form.infDPS_toma_orgaoPublico" class="po-lg-3"></po-switch>
-              <po-input p-label="CNPJ" [(ngModel)]="form.infDPS_toma_CNPJ" p-mask="99.999.999/9999-99" class="po-lg-3"></po-input>
-              <po-input p-label="CPF" [(ngModel)]="form.infDPS_toma_CPF" p-mask="999.999.999-99" class="po-lg-3"></po-input>
               <po-input p-label="NIF" [(ngModel)]="form.infDPS_toma_NIF" class="po-lg-3"></po-input>
               <po-number p-label="Cod. Nao NIF" [(ngModel)]="form.infDPS_toma_cNaoNIF" class="po-lg-3"></po-number>
               <po-input p-label="CAEPF" [(ngModel)]="form.infDPS_toma_CAEPF" class="po-lg-3"></po-input>
               <po-input p-label="IM" [(ngModel)]="form.infDPS_toma_IM" class="po-lg-3"></po-input>
               <po-input p-label="IE" [(ngModel)]="form.infDPS_toma_IE" class="po-lg-3"></po-input>
-              <po-input p-label="Nome/Razao" [(ngModel)]="form.infDPS_toma_xNome" class="po-lg-6"></po-input>
-              <po-input p-label="Municipio" [(ngModel)]="form.infDPS_toma_end_endNac_cMun" class="po-lg-3"></po-input>
+              <po-input p-label="Municipio" [(ngModel)]="form.infDPS_toma_end_endNac_cMun" p-help="Pode ser obrigatório conforme o municipio." class="po-lg-3"></po-input>
               <po-input p-label="CEP" [(ngModel)]="form.infDPS_toma_end_endNac_CEP" p-mask="99999-999" class="po-lg-3"></po-input>
               <po-input p-label="Pais Exterior" [(ngModel)]="form.infDPS_toma_end_endExt_cPais" class="po-lg-3"></po-input>
               <po-input p-label="Cod. Postal" [(ngModel)]="form.infDPS_toma_end_endExt_cEndPost" class="po-lg-3"></po-input>
               <po-input p-label="Cidade Ext." [(ngModel)]="form.infDPS_toma_end_endExt_xCidade" class="po-lg-3"></po-input>
               <po-input p-label="Estado Ext." [(ngModel)]="form.infDPS_toma_end_endExt_xEstProvReg" class="po-lg-3"></po-input>
-              <po-input p-label="Logradouro" [(ngModel)]="form.infDPS_toma_end_xLgr" class="po-lg-4"></po-input>
+              <po-input p-label="Logradouro" [(ngModel)]="form.infDPS_toma_end_xLgr" p-help="Pode ser obrigatório conforme o municipio." class="po-lg-4"></po-input>
               <po-input p-label="Tipo Logradouro" [(ngModel)]="form.infDPS_toma_end_tpLgr" class="po-lg-2"></po-input>
-              <po-input p-label="Numero" [(ngModel)]="form.infDPS_toma_end_nro" class="po-lg-2"></po-input>
+              <po-input p-label="Numero" [(ngModel)]="form.infDPS_toma_end_nro" p-help="Pode ser obrigatório conforme o municipio." class="po-lg-2"></po-input>
               <po-input p-label="Complemento" [(ngModel)]="form.infDPS_toma_end_xCpl" class="po-lg-3"></po-input>
               <po-input p-label="Bairro" [(ngModel)]="form.infDPS_toma_end_xBairro" class="po-lg-3"></po-input>
               <po-input p-label="Fone" [(ngModel)]="form.infDPS_toma_fone" class="po-lg-3"></po-input>
-              <po-email p-label="Email" [(ngModel)]="form.infDPS_toma_email" class="po-lg-3"></po-email>
+              <po-email p-label="Email" [(ngModel)]="form.infDPS_toma_email" p-help="Pode ser exigido conforme o municipio." class="po-lg-3"></po-email>
             </div>
           </section>
 
@@ -184,7 +235,6 @@ import { CTribNacLookupService } from './nfse-ctribnac-lookup.service';
             <h4 class="crud-section__title">infDPS.serv</h4>
             <p class="crud-section__hint">Campos dos blocos 'locPrest', 'cServ', 'comExt', 'lsadppu', 'explRod' e 'infoCompl'.</p>
             <div class="po-row">
-              <po-input p-label="Municipio de Prestacao" [(ngModel)]="form.infDPS_serv_locPrest_cLocPrestacao" class="po-lg-3"></po-input>
               <po-input p-label="Pais de Prestacao" [(ngModel)]="form.infDPS_serv_locPrest_cPaisPrestacao" class="po-lg-3"></po-input>
               <po-lookup
                 p-label="Cod. Tributacao Nacional"
