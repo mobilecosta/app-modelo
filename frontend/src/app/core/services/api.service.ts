@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {
-  ApiResponse, Campo, Menu, Pessoa, PessoaFormPayload, PessoaReceitaWsResponse, Sistema, Tabela, Usuario
+  ApiResponse, Campo, Menu, NfseServico, Pessoa, PessoaFormPayload, PessoaReceitaWsResponse, Sistema, Tabela, Usuario
 } from '../models/types';
 import { environment } from '../../../environments/environment';
 
@@ -152,5 +152,33 @@ export class ApiService {
 
   consultarReceitaWs(cnpj: string): Observable<PessoaReceitaWsResponse> {
     return this.http.get<PessoaReceitaWsResponse>(`${environment.apiUrl}/pessoas/receitaws/${cnpj}`);
+  }
+
+  listarNfseServicos(page = 1, pageSize = 10, referencia?: string): Observable<ApiResponse<NfseServico>> {
+    let params = new HttpParams()
+      .set('page', page)
+      .set('pageSize', pageSize);
+
+    if (referencia) {
+      params = params.set('referencia', referencia);
+    }
+
+    return this.http.get<ApiResponse<NfseServico>>(`${environment.apiUrl}/nfse_servicos`, { params });
+  }
+
+  buscarNfseServico(id: string): Observable<ApiResponse<NfseServico>> {
+    return this.http.get<ApiResponse<NfseServico>>(`${environment.apiUrl}/nfse_servicos/${id}`);
+  }
+
+  criarNfseServico(dados: Partial<NfseServico>): Observable<ApiResponse<NfseServico>> {
+    return this.http.post<ApiResponse<NfseServico>>(`${environment.apiUrl}/nfse_servicos`, dados);
+  }
+
+  atualizarNfseServico(id: string, dados: Partial<NfseServico>): Observable<ApiResponse<NfseServico>> {
+    return this.http.put<ApiResponse<NfseServico>>(`${environment.apiUrl}/nfse_servicos/${id}`, dados);
+  }
+
+  excluirNfseServico(id: string): Observable<void> {
+    return this.http.delete<void>(`${environment.apiUrl}/nfse_servicos/${id}`);
   }
 }

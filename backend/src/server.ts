@@ -9,6 +9,7 @@ import camposRoutes from './routes/campos.routes';
 import menusRoutes from './routes/menus.routes';
 import sistemasRoutes from './routes/sistemas.routes';
 import pessoasRoutes from './routes/pessoas.routes';
+import nfseServicosRoutes from './routes/nfse-servicos.routes';
 
 dotenv.config();
 
@@ -26,6 +27,7 @@ app.use('/api/campos', camposRoutes);
 app.use('/api/menus', menusRoutes);
 app.use('/api/sistemas', sistemasRoutes);
 app.use('/api/pessoas', pessoasRoutes);
+app.use('/api/nfse_servicos', nfseServicosRoutes);
 
 app.get(['/health', '/api/health'], (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });

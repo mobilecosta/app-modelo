@@ -41,6 +41,10 @@ export const routes: Routes = [
       {
         path: 'pessoas_juridicas',
         loadComponent: () => import('./features/pessoas-juridicas/pessoas-juridicas.component').then(m => m.PessoasJuridicasComponent)
+      },
+      {
+        path: 'nfse_servicos',
+        loadComponent: () => import('./features/nfse-servicos/nfse-servicos.component').then(m => m.NfseServicosComponent)
       }
     ]
   },
