@@ -331,6 +331,17 @@ export interface PessoaFormPayload extends Partial<Pessoa> {
   qsa?: PessoaQsa[];
 }
 
+export interface NfseCTribNac {
+  id: string;
+  grupo: string;
+  codigo: string;
+  descricao: string;
+  grupo_desc: string;
+  ativo: boolean;
+  created_at?: string;
+  updated_at?: string;
+}
+
 export interface PessoaReceitaWsResponse {
   fonte: string;
   consulta: {
