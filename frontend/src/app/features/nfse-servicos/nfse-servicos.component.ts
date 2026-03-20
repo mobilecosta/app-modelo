@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   PoButtonModule,
+  PoDividerModule,
   PoFieldModule,
   PoModalComponent,
   PoModalModule,
@@ -21,6 +22,7 @@ import { NfseServico } from '../../core/models/types';
   imports: [
     FormsModule,
     PoButtonModule,
+    PoDividerModule,
     PoFieldModule,
     PoModalModule,
     PoPageModule,
@@ -128,8 +130,8 @@ import { NfseServico } from '../../core/models/types';
             <h4 class="crud-section__title">infDPS.prest</h4>
             <p class="crud-section__hint">Campos do prestador e do bloco 'regTrib'.</p>
             <div class="po-row">
-              <po-input p-label="Prestador CNPJ" [(ngModel)]="form.infDPS_prest_CNPJ" class="po-lg-3"></po-input>
-              <po-input p-label="Prestador CPF" [(ngModel)]="form.infDPS_prest_CPF" class="po-lg-3"></po-input>
+              <po-input p-label="Prestador CNPJ" [(ngModel)]="form.infDPS_prest_CNPJ" p-mask="99.999.999/9999-99" class="po-lg-3"></po-input>
+              <po-input p-label="Prestador CPF" [(ngModel)]="form.infDPS_prest_CPF" p-mask="999.999.999-99" class="po-lg-3"></po-input>
               <po-number p-label="Regime Especial de Tributacao" [(ngModel)]="form.infDPS_prest_regTrib_regEspTrib" class="po-lg-3"></po-number>
             </div>
           </section>
@@ -140,8 +142,8 @@ import { NfseServico } from '../../core/models/types';
             <div class="po-row">
               <po-input p-label="ID do Tomador" [(ngModel)]="form.infDPS_toma_pessoa_id" class="po-lg-3"></po-input>
               <po-switch p-label="Orgao Publico" [(ngModel)]="form.infDPS_toma_orgaoPublico" class="po-lg-3"></po-switch>
-              <po-input p-label="Tomador CNPJ" [(ngModel)]="form.infDPS_toma_CNPJ" class="po-lg-3"></po-input>
-              <po-input p-label="Tomador CPF" [(ngModel)]="form.infDPS_toma_CPF" class="po-lg-3"></po-input>
+              <po-input p-label="Tomador CNPJ" [(ngModel)]="form.infDPS_toma_CNPJ" p-mask="99.999.999/9999-99" class="po-lg-3"></po-input>
+              <po-input p-label="Tomador CPF" [(ngModel)]="form.infDPS_toma_CPF" p-mask="999.999.999-99" class="po-lg-3"></po-input>
               <po-input p-label="Tomador NIF" [(ngModel)]="form.infDPS_toma_NIF" class="po-lg-3"></po-input>
               <po-number p-label="Tomador Cod. Nao NIF" [(ngModel)]="form.infDPS_toma_cNaoNIF" class="po-lg-3"></po-number>
               <po-input p-label="Tomador CAEPF" [(ngModel)]="form.infDPS_toma_CAEPF" class="po-lg-3"></po-input>
@@ -149,7 +151,7 @@ import { NfseServico } from '../../core/models/types';
               <po-input p-label="Tomador IE" [(ngModel)]="form.infDPS_toma_IE" class="po-lg-3"></po-input>
               <po-input p-label="Tomador Nome/Razao" [(ngModel)]="form.infDPS_toma_xNome" class="po-lg-6"></po-input>
               <po-input p-label="Municipio (Tomador)" [(ngModel)]="form.infDPS_toma_end_endNac_cMun" class="po-lg-3"></po-input>
-              <po-input p-label="CEP (Tomador)" [(ngModel)]="form.infDPS_toma_end_endNac_CEP" class="po-lg-3"></po-input>
+              <po-input p-label="CEP (Tomador)" [(ngModel)]="form.infDPS_toma_end_endNac_CEP" p-mask="99999-999" class="po-lg-3"></po-input>
               <po-input p-label="Pais Exterior (Tomador)" [(ngModel)]="form.infDPS_toma_end_endExt_cPais" class="po-lg-3"></po-input>
               <po-input p-label="Cod. Postal (Tomador)" [(ngModel)]="form.infDPS_toma_end_endExt_cEndPost" class="po-lg-3"></po-input>
               <po-input p-label="Cidade Ext. (Tomador)" [(ngModel)]="form.infDPS_toma_end_endExt_xCidade" class="po-lg-3"></po-input>
@@ -168,8 +170,8 @@ import { NfseServico } from '../../core/models/types';
             <h4 class="crud-section__title">infDPS.interm</h4>
             <p class="crud-section__hint">Campos do intermediario, com identificacao, contato e endereco.</p>
             <div class="po-row">
-              <po-input p-label="Intermediario CNPJ" [(ngModel)]="form.infDPS_interm_CNPJ" class="po-lg-3"></po-input>
-              <po-input p-label="Intermediario CPF" [(ngModel)]="form.infDPS_interm_CPF" class="po-lg-3"></po-input>
+              <po-input p-label="Intermediario CNPJ" [(ngModel)]="form.infDPS_interm_CNPJ" p-mask="99.999.999/9999-99" class="po-lg-3"></po-input>
+              <po-input p-label="Intermediario CPF" [(ngModel)]="form.infDPS_interm_CPF" p-mask="999.999.999-99" class="po-lg-3"></po-input>
               <po-input p-label="Intermediario NIF" [(ngModel)]="form.infDPS_interm_NIF" class="po-lg-3"></po-input>
               <po-number p-label="Intermed. Cod. Nao NIF" [(ngModel)]="form.infDPS_interm_cNaoNIF" class="po-lg-3"></po-number>
               <po-input p-label="Intermediario CAEPF" [(ngModel)]="form.infDPS_interm_CAEPF" class="po-lg-3"></po-input>
@@ -177,7 +179,7 @@ import { NfseServico } from '../../core/models/types';
               <po-input p-label="Intermediario IE" [(ngModel)]="form.infDPS_interm_IE" class="po-lg-3"></po-input>
               <po-input p-label="Intermediario Nome/Razao" [(ngModel)]="form.infDPS_interm_xNome" class="po-lg-6"></po-input>
               <po-input p-label="Municipio (Intermediario)" [(ngModel)]="form.infDPS_interm_end_endNac_cMun" class="po-lg-3"></po-input>
-              <po-input p-label="CEP (Intermediario)" [(ngModel)]="form.infDPS_interm_end_endNac_CEP" class="po-lg-3"></po-input>
+              <po-input p-label="CEP (Intermediario)" [(ngModel)]="form.infDPS_interm_end_endNac_CEP" p-mask="99999-999" class="po-lg-3"></po-input>
               <po-input p-label="Pais Ext. (Intermediario)" [(ngModel)]="form.infDPS_interm_end_endExt_cPais" class="po-lg-3"></po-input>
               <po-input p-label="Cod. Postal (Intermediario)" [(ngModel)]="form.infDPS_interm_end_endExt_cEndPost" class="po-lg-3"></po-input>
               <po-input p-label="Cidade Ext. (Intermediario)" [(ngModel)]="form.infDPS_interm_end_endExt_xCidade" class="po-lg-3"></po-input>
@@ -218,10 +220,11 @@ import { NfseServico } from '../../core/models/types';
               <po-number p-label="Objeto (LSADPPU)" [(ngModel)]="form.infDPS_serv_lsadppu_objeto" class="po-lg-3"></po-number>
               <po-input p-label="Extensao (LSADPPU)" [(ngModel)]="form.infDPS_serv_lsadppu_extensao" class="po-lg-3"></po-input>
               <po-input p-label="Numero de Postes" [(ngModel)]="form.infDPS_serv_lsadppu_nPostes" class="po-lg-3"></po-input>
+              <po-divider p-label="Obra" class="po-xl-12 po-lg-12 po-md-12 po-sm-12"></po-divider>
               <po-input p-label="Insc. Imob. Fisc. (Obra)" [(ngModel)]="form.infDPS_serv_obra_inscImobFisc" class="po-lg-3"></po-input>
               <po-input p-label="Codigo da Obra" [(ngModel)]="form.infDPS_serv_obra_cObra" class="po-lg-3"></po-input>
               <po-input p-label="CIB da Obra" [(ngModel)]="form.infDPS_serv_obra_cCIB" class="po-lg-3"></po-input>
-              <po-input p-label="CEP (Obra)" [(ngModel)]="form.infDPS_serv_obra_end_CEP" class="po-lg-3"></po-input>
+              <po-input p-label="CEP (Obra)" [(ngModel)]="form.infDPS_serv_obra_end_CEP" p-mask="99999-999" class="po-lg-3"></po-input>
               <po-input p-label="Cod. Postal Ext. (Obra)" [(ngModel)]="form.infDPS_serv_obra_end_endExt_cEndPost" class="po-lg-3"></po-input>
               <po-input p-label="Cidade Ext. (Obra)" [(ngModel)]="form.infDPS_serv_obra_end_endExt_xCidade" class="po-lg-3"></po-input>
               <po-input p-label="Estado Ext. (Obra)" [(ngModel)]="form.infDPS_serv_obra_end_endExt_xEstProvReg" class="po-lg-3"></po-input>
@@ -230,12 +233,15 @@ import { NfseServico } from '../../core/models/types';
               <po-input p-label="Numero (Obra)" [(ngModel)]="form.infDPS_serv_obra_end_nro" class="po-lg-2"></po-input>
               <po-input p-label="Complemento (Obra)" [(ngModel)]="form.infDPS_serv_obra_end_xCpl" class="po-lg-3"></po-input>
               <po-input p-label="Bairro (Obra)" [(ngModel)]="form.infDPS_serv_obra_end_xBairro" class="po-lg-3"></po-input>
+              
+              <po-divider p-label="Evento" class="po-xl-12 po-lg-12 po-md-12 po-sm-12"></po-divider>
+              
               <po-input p-label="Nome do Evento" [(ngModel)]="form.infDPS_serv_atvEvento_xNome" class="po-lg-4"></po-input>
               <po-input p-label="ID Ativ. do Evento" [(ngModel)]="form.infDPS_serv_atvEvento_idAtvEvt" class="po-lg-4"></po-input>
               <po-input p-label="ID do Evento" [(ngModel)]="form.infDPS_serv_atvEvento_id" class="po-lg-4"></po-input>
               <po-input p-label="Data Inic. do Evento" [(ngModel)]="form.infDPS_serv_atvEvento_dtIni" class="po-lg-3"></po-input>
               <po-input p-label="Data Fim do Evento" [(ngModel)]="form.infDPS_serv_atvEvento_dtFim" class="po-lg-3"></po-input>
-              <po-input p-label="CEP (Evento)" [(ngModel)]="form.infDPS_serv_atvEvento_end_CEP" class="po-lg-3"></po-input>
+              <po-input p-label="CEP (Evento)" [(ngModel)]="form.infDPS_serv_atvEvento_end_CEP" p-mask="99999-999" class="po-lg-3"></po-input>
               <po-input p-label="Cod. Postal Ext. (Evento)" [(ngModel)]="form.infDPS_serv_atvEvento_end_endExt_cEndPost" class="po-lg-3"></po-input>
               <po-input p-label="Cidade Ext. (Evento)" [(ngModel)]="form.infDPS_serv_atvEvento_end_endExt_xCidade" class="po-lg-3"></po-input>
               <po-input p-label="Estado Ext. (Evento)" [(ngModel)]="form.infDPS_serv_atvEvento_end_endExt_xEstProvReg" class="po-lg-3"></po-input>
@@ -331,15 +337,15 @@ import { NfseServico } from '../../core/models/types';
               <po-number p-label="Tipo de Operacao" [(ngModel)]="form.infDPS_IBSCBS_tpOper" class="po-lg-3"></po-number>
               <po-number p-label="Tipo Ente Gov" [(ngModel)]="form.infDPS_IBSCBS_tpEnteGov" class="po-lg-3"></po-number>
               <po-number p-label="Ind. Destino" [(ngModel)]="form.infDPS_IBSCBS_indDest" class="po-lg-3"></po-number>
-              <po-input p-label="Destinatario CNPJ" [(ngModel)]="form.infDPS_IBSCBS_dest_CNPJ" class="po-lg-3"></po-input>
-              <po-input p-label="Destinatario CPF" [(ngModel)]="form.infDPS_IBSCBS_dest_CPF" class="po-lg-3"></po-input>
+              <po-input p-label="Destinatario CNPJ" [(ngModel)]="form.infDPS_IBSCBS_dest_CNPJ" p-mask="99.999.999/9999-99" class="po-lg-3"></po-input>
+              <po-input p-label="Destinatario CPF" [(ngModel)]="form.infDPS_IBSCBS_dest_CPF" p-mask="999.999.999-99" class="po-lg-3"></po-input>
               <po-input p-label="Destinatario NIF" [(ngModel)]="form.infDPS_IBSCBS_dest_NIF" class="po-lg-3"></po-input>
               <po-number p-label="Dest. Cod. Nao NIF" [(ngModel)]="form.infDPS_IBSCBS_dest_cNaoNIF" class="po-lg-3"></po-number>
               <po-input p-label="Destinatario Nome/Razao" [(ngModel)]="form.infDPS_IBSCBS_dest_xNome" class="po-lg-6"></po-input>
               <po-email p-label="Destinatario Email" [(ngModel)]="form.infDPS_IBSCBS_dest_email" class="po-lg-3"></po-email>
               <po-input p-label="Destinatario Fone" [(ngModel)]="form.infDPS_IBSCBS_dest_fone" class="po-lg-3"></po-input>
               <po-input p-label="Municipio (Destinatario)" [(ngModel)]="form.infDPS_IBSCBS_dest_end_endNac_cMun" class="po-lg-3"></po-input>
-              <po-input p-label="CEP (Destinatario)" [(ngModel)]="form.infDPS_IBSCBS_dest_end_endNac_CEP" class="po-lg-3"></po-input>
+              <po-input p-label="CEP (Destinatario)" [(ngModel)]="form.infDPS_IBSCBS_dest_end_endNac_CEP" p-mask="99999-999" class="po-lg-3"></po-input>
               <po-input p-label="Pais Ext. (Destinatario)" [(ngModel)]="form.infDPS_IBSCBS_dest_end_endExt_cPais" class="po-lg-3"></po-input>
               <po-input p-label="Cod. Postal (Destinatario)" [(ngModel)]="form.infDPS_IBSCBS_dest_end_endExt_cEndPost" class="po-lg-3"></po-input>
               <po-input p-label="Cidade Ext. (Destinatario)" [(ngModel)]="form.infDPS_IBSCBS_dest_end_endExt_xCidade" class="po-lg-3"></po-input>
@@ -349,9 +355,12 @@ import { NfseServico } from '../../core/models/types';
               <po-input p-label="Numero (Destinatario)" [(ngModel)]="form.infDPS_IBSCBS_dest_end_nro" class="po-lg-2"></po-input>
               <po-input p-label="Complemento (Destinatario)" [(ngModel)]="form.infDPS_IBSCBS_dest_end_xCpl" class="po-lg-3"></po-input>
               <po-input p-label="Bairro (Destinatario)" [(ngModel)]="form.infDPS_IBSCBS_dest_end_xBairro" class="po-lg-3"></po-input>
+              
+              <po-divider p-label="Imovel" class="po-xl-12 po-lg-12 po-md-12 po-sm-12"></po-divider>
+              
               <po-input p-label="Insc. Imob. Fisc. (Imovel)" [(ngModel)]="form.infDPS_IBSCBS_imovel_inscImobFisc" class="po-lg-3"></po-input>
               <po-input p-label="CIB do Imovel" [(ngModel)]="form.infDPS_IBSCBS_imovel_cCIB" class="po-lg-3"></po-input>
-              <po-input p-label="CEP (Imovel)" [(ngModel)]="form.infDPS_IBSCBS_imovel_end_CEP" class="po-lg-3"></po-input>
+              <po-input p-label="CEP (Imovel)" [(ngModel)]="form.infDPS_IBSCBS_imovel_end_CEP" p-mask="99999-999" class="po-lg-3"></po-input>
               <po-input p-label="Cod. Postal Ext. (Imovel)" [(ngModel)]="form.infDPS_IBSCBS_imovel_end_endExt_cEndPost" class="po-lg-3"></po-input>
               <po-input p-label="Cidade Ext. (Imovel)" [(ngModel)]="form.infDPS_IBSCBS_imovel_end_endExt_xCidade" class="po-lg-3"></po-input>
               <po-input p-label="Estado Ext. (Imovel)" [(ngModel)]="form.infDPS_IBSCBS_imovel_end_endExt_xEstProvReg" class="po-lg-3"></po-input>
