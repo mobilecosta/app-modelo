@@ -148,19 +148,58 @@ import {
 
           <section class="crud-section">
             <h4 class="crud-section__title">pessoas_atividades_secundarias</h4>
-            <p class="crud-section__hint">Grid de detalhe retornado pela consulta do CNPJ e pela API de pessoas.</p>
+            <p class="crud-section__hint">Edite as atividades secundarias manualmente, alem do retorno da consulta do CNPJ.</p>
+            <div class="po-row po-mb-md">
+              <po-input p-label="Codigo" [(ngModel)]="atividadeEmEdicao.codigo" class="po-lg-3"></po-input>
+              <po-input p-label="Descricao" [(ngModel)]="atividadeEmEdicao.descricao" class="po-lg-7"></po-input>
+              <po-number p-label="Ordem" [(ngModel)]="atividadeEmEdicao.ordem" class="po-lg-2"></po-number>
+              <div class="po-lg-12 pessoas-juridicas__grid-actions">
+                <po-button
+                  [p-label]="editandoAtividadeIndex === null ? 'Adicionar atividade' : 'Atualizar atividade'"
+                  (p-click)="salvarAtividadeSecundaria()">
+                </po-button>
+                <po-button
+                  p-label="Limpar"
+                  p-kind="tertiary"
+                  [p-disabled]="editandoAtividadeIndex === null && !atividadeEmEdicao.codigo && !atividadeEmEdicao.descricao"
+                  (p-click)="cancelarEdicaoAtividade()">
+                </po-button>
+              </div>
+            </div>
             <po-table
               [p-columns]="colunasAtividades"
-              [p-items]="atividadesSecundarias">
+              [p-items]="atividadesSecundarias"
+              [p-actions]="acoesAtividades">
             </po-table>
           </section>
 
           <section class="crud-section">
             <h4 class="crud-section__title">pessoas_qsa</h4>
-            <p class="crud-section__hint">Quadro societario e administradores associados ao cadastro selecionado.</p>
+            <p class="crud-section__hint">Edite o quadro societario e administradores diretamente no formulario.</p>
+            <div class="po-row po-mb-md">
+              <po-input p-label="Nome" [(ngModel)]="qsaEmEdicao.nome" class="po-lg-4"></po-input>
+              <po-input p-label="Qualificacao" [(ngModel)]="qsaEmEdicao.qualificacao" class="po-lg-4"></po-input>
+              <po-input p-label="Pais origem" [(ngModel)]="qsaEmEdicao.pais_origem" class="po-lg-4"></po-input>
+              <po-input p-label="Representante legal" [(ngModel)]="qsaEmEdicao.nome_rep_legal" class="po-lg-4"></po-input>
+              <po-input p-label="Qual. rep. legal" [(ngModel)]="qsaEmEdicao.qual_rep_legal" class="po-lg-4"></po-input>
+              <po-number p-label="Ordem" [(ngModel)]="qsaEmEdicao.ordem" class="po-lg-2"></po-number>
+              <div class="po-lg-12 pessoas-juridicas__grid-actions">
+                <po-button
+                  [p-label]="editandoQsaIndex === null ? 'Adicionar QSA' : 'Atualizar QSA'"
+                  (p-click)="salvarQsa()">
+                </po-button>
+                <po-button
+                  p-label="Limpar"
+                  p-kind="tertiary"
+                  [p-disabled]="editandoQsaIndex === null && !qsaEmEdicao.nome && !qsaEmEdicao.qualificacao"
+                  (p-click)="cancelarEdicaoQsa()">
+                </po-button>
+              </div>
+            </div>
             <po-table
               [p-columns]="colunasQsa"
-              [p-items]="qsa">
+              [p-items]="qsa"
+              [p-actions]="acoesQsa">
             </po-table>
           </section>
         </div>
@@ -174,9 +213,13 @@ export class PessoasJuridicasComponent implements OnInit {
   itens: Pessoa[] = [];
   atividadesSecundarias: PessoaAtividadeSecundaria[] = [];
   qsa: PessoaQsa[] = [];
+  atividadeEmEdicao: Partial<PessoaAtividadeSecundaria> = this.criarAtividadePadrao();
+  qsaEmEdicao: Partial<PessoaQsa> = this.criarQsaPadrao();
   carregando = false;
   consultandoCnpj = false;
   editandoId: string | null = null;
+  editandoAtividadeIndex: number | null = null;
+  editandoQsaIndex: number | null = null;
   modalTitulo = 'Nova pessoa juridica';
   paginaAtual = 1;
   readonly pageSize = 10;
@@ -215,6 +258,16 @@ export class PessoasJuridicasComponent implements OnInit {
   tabelaActions = [
     { label: 'Editar', action: (item: Pessoa) => this.abrirEditar(item) },
     { label: 'Excluir', action: (item: Pessoa) => this.excluir(item.id) }
+  ];
+
+  acoesAtividades = [
+    { label: 'Editar', action: (item: PessoaAtividadeSecundaria) => this.editarAtividadeSecundaria(item) },
+    { label: 'Excluir', action: (item: PessoaAtividadeSecundaria) => this.removerAtividadeSecundaria(item) }
+  ];
+
+  acoesQsa = [
+    { label: 'Editar', action: (item: PessoaQsa) => this.editarQsa(item) },
+    { label: 'Excluir', action: (item: PessoaQsa) => this.removerQsa(item) }
   ];
 
   modalPrimary = { label: 'Salvar', action: () => this.salvar() };
@@ -271,6 +324,8 @@ export class PessoasJuridicasComponent implements OnInit {
     this.form = this.criarFormPadrao();
     this.atividadesSecundarias = [];
     this.qsa = [];
+    this.cancelarEdicaoAtividade();
+    this.cancelarEdicaoQsa();
     this.modal.open();
   }
 
@@ -280,6 +335,8 @@ export class PessoasJuridicasComponent implements OnInit {
     this.form = this.mapearPessoaParaForm(item);
     this.atividadesSecundarias = item.pessoas_atividades_secundarias ?? [];
     this.qsa = item.pessoas_qsa ?? [];
+    this.cancelarEdicaoAtividade();
+    this.cancelarEdicaoQsa();
     this.modal.open();
   }
 
@@ -349,6 +406,93 @@ export class PessoasJuridicasComponent implements OnInit {
     this.form.cnpj = this.formatarCnpj(value);
   }
 
+  salvarAtividadeSecundaria(): void {
+    if (!this.atividadeEmEdicao.codigo || !this.atividadeEmEdicao.descricao) {
+      this.notificacao.warning('Informe codigo e descricao da atividade secundaria.');
+      return;
+    }
+
+    const item: PessoaAtividadeSecundaria = {
+      codigo: this.atividadeEmEdicao.codigo,
+      descricao: this.atividadeEmEdicao.descricao,
+      ordem: this.atividadeEmEdicao.ordem ?? this.proximaOrdem(this.atividadesSecundarias)
+    };
+
+    if (this.editandoAtividadeIndex === null) {
+      this.atividadesSecundarias = [...this.atividadesSecundarias, item];
+    } else {
+      this.atividadesSecundarias = this.atividadesSecundarias.map((atividade, index) =>
+        index === this.editandoAtividadeIndex ? { ...atividade, ...item } : atividade
+      );
+    }
+
+    this.cancelarEdicaoAtividade();
+  }
+
+  editarAtividadeSecundaria(item: PessoaAtividadeSecundaria): void {
+    this.editandoAtividadeIndex = this.atividadesSecundarias.indexOf(item);
+    this.atividadeEmEdicao = { ...item };
+  }
+
+  removerAtividadeSecundaria(item: PessoaAtividadeSecundaria): void {
+    const index = this.atividadesSecundarias.indexOf(item);
+    this.atividadesSecundarias = this.atividadesSecundarias.filter((_, currentIndex) => currentIndex !== index);
+
+    if (this.editandoAtividadeIndex === index) {
+      this.cancelarEdicaoAtividade();
+    }
+  }
+
+  cancelarEdicaoAtividade(): void {
+    this.editandoAtividadeIndex = null;
+    this.atividadeEmEdicao = this.criarAtividadePadrao();
+  }
+
+  salvarQsa(): void {
+    if (!this.qsaEmEdicao.nome) {
+      this.notificacao.warning('Informe pelo menos o nome do QSA.');
+      return;
+    }
+
+    const item: PessoaQsa = {
+      nome: this.qsaEmEdicao.nome,
+      qualificacao: this.qsaEmEdicao.qualificacao,
+      pais_origem: this.qsaEmEdicao.pais_origem,
+      nome_rep_legal: this.qsaEmEdicao.nome_rep_legal,
+      qual_rep_legal: this.qsaEmEdicao.qual_rep_legal,
+      ordem: this.qsaEmEdicao.ordem ?? this.proximaOrdem(this.qsa)
+    };
+
+    if (this.editandoQsaIndex === null) {
+      this.qsa = [...this.qsa, item];
+    } else {
+      this.qsa = this.qsa.map((qsaItem, index) =>
+        index === this.editandoQsaIndex ? { ...qsaItem, ...item } : qsaItem
+      );
+    }
+
+    this.cancelarEdicaoQsa();
+  }
+
+  editarQsa(item: PessoaQsa): void {
+    this.editandoQsaIndex = this.qsa.indexOf(item);
+    this.qsaEmEdicao = { ...item };
+  }
+
+  removerQsa(item: PessoaQsa): void {
+    const index = this.qsa.indexOf(item);
+    this.qsa = this.qsa.filter((_, currentIndex) => currentIndex !== index);
+
+    if (this.editandoQsaIndex === index) {
+      this.cancelarEdicaoQsa();
+    }
+  }
+
+  cancelarEdicaoQsa(): void {
+    this.editandoQsaIndex = null;
+    this.qsaEmEdicao = this.criarQsaPadrao();
+  }
+
   private aplicarRetornoReceita(
     pessoa: PessoaFormPayload,
     atividades: PessoaAtividadeSecundaria[],
@@ -399,6 +543,31 @@ export class PessoasJuridicasComponent implements OnInit {
       atividades_secundarias: [],
       qsa: []
     };
+  }
+
+  private criarAtividadePadrao(): Partial<PessoaAtividadeSecundaria> {
+    return {
+      codigo: '',
+      descricao: ''
+    };
+  }
+
+  private criarQsaPadrao(): Partial<PessoaQsa> {
+    return {
+      nome: '',
+      qualificacao: '',
+      pais_origem: '',
+      nome_rep_legal: '',
+      qual_rep_legal: ''
+    };
+  }
+
+  private proximaOrdem<T extends { ordem?: number }>(itens: T[]): number {
+    if (!itens.length) {
+      return 0;
+    }
+
+    return Math.max(...itens.map(item => item.ordem ?? 0)) + 1;
   }
 
   private normalizarCnpj(valor?: string): string {
