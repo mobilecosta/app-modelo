@@ -897,11 +897,7 @@ export class NfseServicosComponent implements OnInit {
 
   private montarPayload(): Partial<NfseServico> {
     return {
-      ...this.form,
-      infDPS_serv_infoCompl_gItemPed_xItemPed: this.parseJson(this.jsonItensPedido),
-      infDPS_valores_vDedRed_documentos_docDedRed: this.parseJson(this.jsonDocDedRed),
-      infDPS_IBSCBS_valores_gReeRepRes_documentos: this.parseJson(this.jsonDocumentosIbscbs),
-      infDPS_IBSCBS_gRefNFSe_refNFSe: this.parseJson(this.jsonRefsNfse)
+      ...this.form
     };
   }
 
