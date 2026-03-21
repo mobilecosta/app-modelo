@@ -785,11 +785,11 @@ export class NfseServicosComponent implements OnInit {
   ];
 
   pageActions: PoPageAction[] = [
-    { label: 'Novo', icon: 'ph ph-plus', action: () => this.abrirNovo() }
+    { label: 'Novo', icon: 'ph ph-plus', action: () => this.abrirNovo() },
+    { label: 'Enviar NFSe', icon: 'ph ph-paper-plane-tilt', action: () => this.enviarNfseDaLista() }
   ];
 
   tabelaActions = [
-    { label: 'Enviar NFSe', action: (item: NfseServico) => this.enviarNfse(item) },
     { label: 'Editar', action: (item: NfseServico) => this.abrirEditar(item) },
     { label: 'Excluir', action: (item: NfseServico) => this.excluir(item.id) }
   ];
@@ -893,7 +893,32 @@ export class NfseServicosComponent implements OnInit {
   }
 
   enviarNfse(item: NfseServico): void {
-    this.notificacao.information(`Envio da NFSe para a referencia "${item.referencia || item.id}" em desenvolvimento.`);
+    this.apiService.enviarNfseServico(item.id).subscribe({
+      next: () => {
+        this.notificacao.success(`NFSe enviada para a referencia "${item.referencia || item.id}".`);
+      },
+      error: (erro) => {
+        const detalhe = erro?.error?.error;
+        const mensagemErro = typeof detalhe === 'string'
+          ? detalhe
+          : erro?.error?.message || 'Erro ao enviar NFSe.';
+        this.notificacao.error(mensagemErro);
+      }
+    });
+  }
+
+  private enviarNfseDaLista(): void {
+    if (!this.itens.length) {
+      this.notificacao.warning('Nenhum registro carregado para envio.');
+      return;
+    }
+
+    if (this.itens.length > 1) {
+      this.notificacao.warning('Filtre a lista para deixar apenas 1 registro antes de enviar.');
+      return;
+    }
+
+    this.enviarNfse(this.itens[0]);
   }
 
   private montarPayload(): Partial<NfseServico> {

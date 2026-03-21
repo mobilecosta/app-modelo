@@ -182,6 +182,13 @@ export class ApiService {
     return this.http.delete<void>(`${environment.apiUrl}/nfse_servicos/${id}`);
   }
 
+  enviarNfseServico(id: string): Observable<{ message: string; envio: unknown; item: NfseServico }> {
+    return this.http.post<{ message: string; envio: unknown; item: NfseServico }>(
+      `${environment.apiUrl}/nfse_servicos/${id}/enviar`,
+      {}
+    );
+  }
+
   listarCTribNac(busca?: string, grupo?: string): Observable<{ items: NfseCTribNac[] }> {
     let params = new HttpParams();
     if (busca) params = params.set('busca', busca);
