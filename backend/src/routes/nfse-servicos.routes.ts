@@ -14,6 +14,7 @@ const router = Router();
 router.use(authMiddleware);
 
 router.get('/', listarNfseServicos);
+router.post('/enviar', enviarNfseServico);
 router.post('/:id/enviar', enviarNfseServico);
 router.get('/:id', buscarNfseServico);
 router.post('/', criarNfseServico);

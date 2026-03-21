@@ -167,21 +167,44 @@ export const excluirNfseServico = async (req: Request, res: Response): Promise<v
 
 export const enviarNfseServico = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
+  let nfseServico: Record<string, unknown> | null = null;
 
-  const { data: nfseServico, error } = await supabase
-    .from('nfse_servicos')
-    .select('*')
-    .eq('id', id)
-    .single();
+  if (id) {
+    const { data, error } = await supabase
+      .from('nfse_servicos')
+      .select('*')
+      .eq('id', id)
+      .single();
 
-  if (error || !nfseServico) {
-    res.status(404).json({ message: 'NFSe servico nao encontrado' });
-    return;
+    if (error || !data) {
+      res.status(404).json({ message: 'NFSe servico nao encontrado' });
+      return;
+    }
+
+    nfseServico = data as Record<string, unknown>;
   }
 
   try {
     const token = await getNuvemFiscalAccessToken();
-    const body = montarPayloadEnvioNfse(nfseServico as Record<string, unknown>);
+    const payloadRecebido = req.body as Record<string, unknown> | undefined;
+    const possuiPayloadRecebido = !!payloadRecebido && Object.keys(payloadRecebido).length > 0;
+    const infDpsEhObjeto =
+      possuiPayloadRecebido &&
+      payloadRecebido !== undefined &&
+      typeof payloadRecebido.infDPS === 'object' &&
+      payloadRecebido.infDPS !== null &&
+      !Array.isArray(payloadRecebido.infDPS);
+
+    const body = possuiPayloadRecebido
+      ? (infDpsEhObjeto
+        ? payloadRecebido
+        : montarPayloadEnvioNfse(payloadRecebido))
+      : (nfseServico ? montarPayloadEnvioNfse(nfseServico) : null);
+
+    if (!body) {
+      res.status(400).json({ message: 'Payload para envio da NFSe nao informado.' });
+      return;
+    }
 
     const response = await fetch(`${getNuvemFiscalBaseUrl()}/nfse/dps`, {
       method: 'POST',

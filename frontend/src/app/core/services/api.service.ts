@@ -182,10 +182,12 @@ export class ApiService {
     return this.http.delete<void>(`${environment.apiUrl}/nfse_servicos/${id}`);
   }
 
-  enviarNfseServico(id: string): Observable<{ message: string; envio: unknown; item: NfseServico }> {
-    return this.http.post<{ message: string; envio: unknown; item: NfseServico }>(
-      `${environment.apiUrl}/nfse_servicos/${id}/enviar`,
-      {}
+  enviarNfseServico(
+    payload: Record<string, unknown> = {}
+  ): Observable<{ message: string; envio: unknown; item: NfseServico | null }> {
+    return this.http.post<{ message: string; envio: unknown; item: NfseServico | null }>(
+      `${environment.apiUrl}/nfse_servicos/enviar`,
+      payload
     );
   }
 

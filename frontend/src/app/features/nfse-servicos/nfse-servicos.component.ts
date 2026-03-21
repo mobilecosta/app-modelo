@@ -786,7 +786,7 @@ export class NfseServicosComponent implements OnInit {
 
   pageActions: PoPageAction[] = [
     { label: 'Novo', icon: 'ph ph-plus', action: () => this.abrirNovo() },
-    { label: 'Enviar NFSe', icon: 'ph ph-paper-plane-tilt', action: () => this.enviarNfseDaLista() }
+    { label: 'Enviar Nfse', icon: 'ph ph-paper-plane-tilt', action: () => this.enviarNfseDaLista() }
   ];
 
   tabelaActions = [
@@ -796,6 +796,82 @@ export class NfseServicosComponent implements OnInit {
 
   modalPrimary = { label: 'Salvar', action: () => this.salvar() };
   modalSecondary = { label: 'Cancelar', action: () => this.modal.close() };
+  private readonly payloadFixoEnvioNfse = {
+    ambiente: 'homologacao',
+    referencia: 'NF-2026-001',
+    infDPS: {
+      serie: 'NF',
+      nDPS: '1',
+      dhEmi: '2026-03-21T10:00:00-03:00',
+      dCompet: '2026-03-21',
+      tpAmb: 2,
+      prest: {
+        CNPJ: '12345678000195',
+        regTrib: {
+          opSimpNac: 1,
+          regEspTrib: 0
+        },
+        IM: '123456',
+        xNome: 'Empresa Prestadora de Servicos Ltda'
+      },
+      toma: {
+        CNPJ: '98765432000100',
+        xNome: 'Empresa Tomadora S.A.',
+        end: {
+          xLgr: 'Avenida Paulista',
+          nro: '1000',
+          xCpl: 'Sala 201',
+          xBairro: 'Bela Vista',
+          cMun: 3550308,
+          xMun: 'Sao Paulo',
+          CEP: '01310100',
+          cPais: 1058,
+          xPais: 'Brasil',
+          UF: 'SP'
+        },
+        fone: '1131234567',
+        email: 'financeiro@tomadora.com.br'
+      },
+      serv: {
+        cServ: {
+          cTribNac: '010600',
+          cTribMun: '010600',
+          CNAE: '6201500',
+          xDescServ: 'Desenvolvimento e manutencao de sistemas de software'
+        },
+        xDescServ: 'Desenvolvimento de sistema web conforme contrato n 001/2026',
+        cMunPrestacao: 3550308
+      },
+      valores: {
+        vServPrest: {
+          vServ: 5000.00,
+          vReceb: 5000.00
+        },
+        trib: {
+          tribMun: {
+            tribISSQN: 1,
+            cLocIncid: 3550308,
+            cPaisResult: 1058,
+            BM: {
+              cBM: '001',
+              xBM: 'Beneficio Municipal'
+            },
+            tpRetISSQN: 1,
+            aliqISSQN: 2.00,
+            vISSQN: 100.00,
+            tpEncISSQN: 3
+          },
+          totTrib: {
+            qTotTribSer: 2.00,
+            vTotTrib: 100.00
+          }
+        },
+        vDesc: 0.00,
+        vOutDed: 0.00,
+        vLiq: 5000.00
+      }
+    }
+  };
 
   constructor(
     private apiService: ApiService,
@@ -892,10 +968,10 @@ export class NfseServicosComponent implements OnInit {
     });
   }
 
-  enviarNfse(item: NfseServico): void {
-    this.apiService.enviarNfseServico(item.id).subscribe({
+  enviarNfse(): void {
+    this.apiService.enviarNfseServico(this.payloadFixoEnvioNfse).subscribe({
       next: () => {
-        this.notificacao.success(`NFSe enviada para a referencia "${item.referencia || item.id}".`);
+        this.notificacao.success(`NFSe enviada para a referencia "${this.payloadFixoEnvioNfse.referencia}".`);
       },
       error: (erro) => {
         const detalhe = erro?.error?.error;
@@ -908,17 +984,7 @@ export class NfseServicosComponent implements OnInit {
   }
 
   private enviarNfseDaLista(): void {
-    if (!this.itens.length) {
-      this.notificacao.warning('Nenhum registro carregado para envio.');
-      return;
-    }
-
-    if (this.itens.length > 1) {
-      this.notificacao.warning('Filtre a lista para deixar apenas 1 registro antes de enviar.');
-      return;
-    }
-
-    this.enviarNfse(this.itens[0]);
+    this.enviarNfse();
   }
 
   private montarPayload(): Partial<NfseServico> {
