@@ -234,7 +234,6 @@ export interface NfseServico {
   infDPS_serv_infoCompl_idDocTec?: string;
   infDPS_serv_infoCompl_docRef?: string;
   infDPS_serv_infoCompl_xPed?: string;
-  infDPS_serv_infoCompl_gItemPed_xItemPed?: unknown;
   infDPS_serv_infoCompl_xInfComp?: string;
   infDPS_valores_vServPrest_vReceb?: number;
   infDPS_valores_vServPrest_vServ?: number;
@@ -242,7 +241,6 @@ export interface NfseServico {
   infDPS_valores_vDescCondIncond_vDescCond?: number;
   infDPS_valores_vDedRed_pDR?: number;
   infDPS_valores_vDedRed_vDR?: number;
-  infDPS_valores_vDedRed_documentos_docDedRed?: unknown;
   infDPS_valores_trib_tribMun_tribISSQN?: number;
   infDPS_valores_trib_tribMun_cPaisResult?: string;
   infDPS_valores_trib_tribMun_tpImunidade?: number;
@@ -280,7 +278,6 @@ export interface NfseServico {
   infDPS_IBSCBS_indFinal?: number;
   infDPS_IBSCBS_cIndOp?: string;
   infDPS_IBSCBS_tpOper?: number;
-  infDPS_IBSCBS_gRefNFSe_refNFSe?: unknown;
   infDPS_IBSCBS_tpEnteGov?: number;
   infDPS_IBSCBS_indDest?: number;
   infDPS_IBSCBS_dest_CNPJ?: string;
@@ -312,7 +309,6 @@ export interface NfseServico {
   infDPS_IBSCBS_imovel_end_nro?: string;
   infDPS_IBSCBS_imovel_end_xCpl?: string;
   infDPS_IBSCBS_imovel_end_xBairro?: string;
-  infDPS_IBSCBS_valores_gReeRepRes_documentos?: unknown;
   infDPS_IBSCBS_valores_trib_gIBSCBS_CST?: string;
   infDPS_IBSCBS_valores_trib_gIBSCBS_cClassTrib?: string;
   infDPS_IBSCBS_valores_trib_gIBSCBS_cCredPres?: string;

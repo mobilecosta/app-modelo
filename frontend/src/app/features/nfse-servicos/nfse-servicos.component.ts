@@ -854,10 +854,6 @@ export class NfseServicosComponent implements OnInit {
     this.editandoId = item.id;
     this.modalTitulo = 'Editar NFS-e Servico';
     this.form = { ...item };
-    this.jsonItensPedido = this.stringifyJson(item.infDPS_serv_infoCompl_gItemPed_xItemPed);
-    this.jsonDocDedRed = this.stringifyJson(item.infDPS_valores_vDedRed_documentos_docDedRed);
-    this.jsonDocumentosIbscbs = this.stringifyJson(item.infDPS_IBSCBS_valores_gReeRepRes_documentos);
-    this.jsonRefsNfse = this.stringifyJson(item.infDPS_IBSCBS_gRefNFSe_refNFSe);
     this.modal.open();
   }
 
