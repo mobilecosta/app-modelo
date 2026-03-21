@@ -789,6 +789,7 @@ export class NfseServicosComponent implements OnInit {
   ];
 
   tabelaActions = [
+    { label: 'Enviar NFSe', action: (item: NfseServico) => this.enviarNfse(item) },
     { label: 'Editar', action: (item: NfseServico) => this.abrirEditar(item) },
     { label: 'Excluir', action: (item: NfseServico) => this.excluir(item.id) }
   ];
@@ -893,6 +894,10 @@ export class NfseServicosComponent implements OnInit {
       },
       error: () => this.notificacao.error('Erro ao excluir nfse_servico.')
     });
+  }
+
+  enviarNfse(item: NfseServico): void {
+    this.notificacao.information(`Envio da NFSe para a referencia "${item.referencia || item.id}" em desenvolvimento.`);
   }
 
   private montarPayload(): Partial<NfseServico> {
