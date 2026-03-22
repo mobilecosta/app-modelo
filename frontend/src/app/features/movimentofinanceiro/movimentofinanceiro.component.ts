@@ -77,15 +77,16 @@ import { MovimentoFinanceiro } from '../../core/models/types';
                 class="po-lg-4">
               </po-select>
 
-              <po-number
+              <po-decimal
                 p-label="Valor"
                 [ngModel]="form.valor"
                 (ngModelChange)="onValorChange($event)"
-                p-min-value="0"
-                p-decimals-length="2"
+                p-mask="R$ 999.999.999.999,99"
+                [p-min]="0"
+                [p-decimals-length]="2"
                 p-required="true"
                 class="po-lg-4">
-              </po-number>
+              </po-decimal>
 
               <po-datepicker
                 p-label="Data do movimento"
