@@ -80,7 +80,7 @@ import { MovimentoFinanceiro } from '../../core/models/types';
               <po-number
                 p-label="Valor"
                 [ngModel]="form.valor"
-                (ngModelChange)="form.valor = $event"
+                (ngModelChange)="onValorChange($event)"
                 p-min-value="0"
                 p-decimals-length="2"
                 p-required="true"
@@ -211,6 +211,11 @@ export class MovimentofinanceiroComponent implements OnInit {
     this.carregar(1);
   }
 
+  onValorChange(valor: number | string): void {
+    const valorNumerico = typeof valor === 'number' ? valor : Number(valor);
+    this.form.valor = Number.isNaN(valorNumerico) ? 0 : valorNumerico;
+  }
+
   abrirNovo(): void {
     this.editandoId = null;
     this.modalTitulo = 'Novo Movimento Financeiro';
@@ -241,6 +246,8 @@ export class MovimentofinanceiroComponent implements OnInit {
       this.notificacao.warning('Informe tipo, valor e data do movimento.');
       return;
     }
+
+    this.form.valor = Number(this.form.valor);
 
     if (this.editandoId) {
       this.apiService.atualizarMovimentoFinanceiro(this.editandoId, this.form).subscribe({
