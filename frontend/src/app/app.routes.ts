@@ -23,6 +23,10 @@ export const routes: Routes = [
         loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent)
       },
       {
+        path: 'dashboard_financeiro',
+        loadComponent: () => import('./features/dashboard-financeiro/dashboard-financeiro.component').then(m => m.DashboardFinanceiroComponent)
+      },
+      {
         path: 'usuarios',
         loadComponent: () => import('./features/usuarios/usuarios.component').then(m => m.UsuariosComponent)
       },
@@ -45,6 +49,10 @@ export const routes: Routes = [
       {
         path: 'nfse_servicos',
         loadComponent: () => import('./features/nfse-servicos/nfse-servicos.component').then(m => m.NfseServicosComponent)
+      },
+      {
+        path: 'movimentofinanceiro',
+        loadComponent: () => import('./features/movimentofinanceiro/movimentofinanceiro.component').then(m => m.MovimentofinanceiroComponent)
       }
     ]
   },

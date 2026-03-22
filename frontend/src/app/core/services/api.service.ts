@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {
-  ApiResponse, Campo, Menu, NfseCTribNac, NfseServico, Pessoa, PessoaFormPayload, PessoaReceitaWsResponse, Sistema, Tabela, Usuario
+  ApiResponse, Campo, Menu, MovimentoFinanceiro, NfseCTribNac, NfseServico, Pessoa, PessoaFormPayload, PessoaReceitaWsResponse, ResumoFinanceiro, Sistema, Tabela, Usuario
 } from '../models/types';
 import { environment } from '../../../environments/environment';
 
@@ -196,5 +196,40 @@ export class ApiService {
     if (busca) params = params.set('busca', busca);
     if (grupo) params = params.set('grupo', grupo);
     return this.http.get<{ items: NfseCTribNac[] }>(`${environment.apiUrl}/nfse_ctribnac`, { params });
+  }
+
+  listarMovimentosFinanceiros(page = 1, pageSize = 10, tipo?: 1 | 2): Observable<ApiResponse<MovimentoFinanceiro>> {
+    let params = new HttpParams()
+      .set('page', page)
+      .set('pageSize', pageSize);
+
+    if (tipo) {
+      params = params.set('tipo', tipo);
+    }
+
+    return this.http.get<ApiResponse<MovimentoFinanceiro>>(`${environment.apiUrl}/movimentofinanceiro`, { params });
+  }
+
+  buscarMovimentoFinanceiro(id: string): Observable<ApiResponse<MovimentoFinanceiro>> {
+    return this.http.get<ApiResponse<MovimentoFinanceiro>>(`${environment.apiUrl}/movimentofinanceiro/${id}`);
+  }
+
+  criarMovimentoFinanceiro(dados: Partial<MovimentoFinanceiro>): Observable<ApiResponse<MovimentoFinanceiro>> {
+    return this.http.post<ApiResponse<MovimentoFinanceiro>>(`${environment.apiUrl}/movimentofinanceiro`, dados);
+  }
+
+  atualizarMovimentoFinanceiro(
+    id: string,
+    dados: Partial<MovimentoFinanceiro>
+  ): Observable<ApiResponse<MovimentoFinanceiro>> {
+    return this.http.put<ApiResponse<MovimentoFinanceiro>>(`${environment.apiUrl}/movimentofinanceiro/${id}`, dados);
+  }
+
+  excluirMovimentoFinanceiro(id: string): Observable<void> {
+    return this.http.delete<void>(`${environment.apiUrl}/movimentofinanceiro/${id}`);
+  }
+
+  resumoMovimentoFinanceiro(): Observable<ApiResponse<ResumoFinanceiro>> {
+    return this.http.get<ApiResponse<ResumoFinanceiro>>(`${environment.apiUrl}/movimentofinanceiro/resumo`);
   }
 }

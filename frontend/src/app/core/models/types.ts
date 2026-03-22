@@ -54,6 +54,23 @@ export interface Menu {
   ativo: boolean;
 }
 
+export interface MovimentoFinanceiro {
+  id: string;
+  tipo: 1 | 2;
+  descricao?: string;
+  valor: number;
+  data_movimento: string;
+  ativo: boolean;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface ResumoFinanceiro {
+  totalEntradas: number;
+  totalSaidas: number;
+  saldo: number;
+}
+
 export interface PessoaAtividadeSecundaria {
   id?: string;
   pessoa_id?: string;

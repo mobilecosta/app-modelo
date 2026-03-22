@@ -11,6 +11,7 @@ import sistemasRoutes from './routes/sistemas.routes';
 import pessoasRoutes from './routes/pessoas.routes';
 import nfseServicosRoutes from './routes/nfse-servicos.routes';
 import nfseCTribNacRoutes from './routes/nfse-ctribnac.routes';
+import movimentoFinanceiroRoutes from './routes/movimentofinanceiro.routes';
 
 dotenv.config();
 
@@ -30,6 +31,7 @@ app.use('/api/sistemas', sistemasRoutes);
 app.use('/api/pessoas', pessoasRoutes);
 app.use('/api/nfse_servicos', nfseServicosRoutes);
 app.use('/api/nfse_ctribnac', nfseCTribNacRoutes);
+app.use('/api/movimentofinanceiro', movimentoFinanceiroRoutes);
 
 app.get(['/health', '/api/health'], (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
