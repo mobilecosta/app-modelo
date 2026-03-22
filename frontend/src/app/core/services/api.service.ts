@@ -229,7 +229,17 @@ export class ApiService {
     return this.http.delete<void>(`${environment.apiUrl}/movimentofinanceiro/${id}`);
   }
 
-  resumoMovimentoFinanceiro(): Observable<ApiResponse<ResumoFinanceiro>> {
-    return this.http.get<ApiResponse<ResumoFinanceiro>>(`${environment.apiUrl}/movimentofinanceiro/resumo`);
+  resumoMovimentoFinanceiro(ano?: number, mes?: number): Observable<ApiResponse<ResumoFinanceiro>> {
+    let params = new HttpParams();
+
+    if (ano !== undefined) {
+      params = params.set('ano', ano);
+    }
+
+    if (mes !== undefined) {
+      params = params.set('mes', mes);
+    }
+
+    return this.http.get<ApiResponse<ResumoFinanceiro>>(`${environment.apiUrl}/movimentofinanceiro/resumo`, { params });
   }
 }

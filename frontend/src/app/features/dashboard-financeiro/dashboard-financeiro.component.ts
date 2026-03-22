@@ -1,14 +1,35 @@
 import { Component, OnInit } from '@angular/core';
-import { PoNotificationService, PoPageModule } from '@po-ui/ng-components';
+import { FormsModule } from '@angular/forms';
+import { PoComboOption, PoFieldModule, PoNotificationService, PoPageModule } from '@po-ui/ng-components';
 import { ApiService } from '../../core/services/api.service';
 import { ResumoFinanceiro } from '../../core/models/types';
 
 @Component({
   selector: 'app-dashboard-financeiro',
   standalone: true,
-  imports: [PoPageModule],
+  imports: [FormsModule, PoFieldModule, PoPageModule],
   template: `
     <po-page-default p-title="Dashboard Financeiro">
+      <div class="filtros-periodo po-row po-mb-3">
+        <po-combo
+          p-label="Ano"
+          [ngModel]="anoSelecionado"
+          (ngModelChange)="onAnoChange($event)"
+          [p-options]="opcoesAno"
+          p-placeholder="Selecione o ano"
+          class="po-lg-3 po-md-4 po-sm-6">
+        </po-combo>
+
+        <po-combo
+          p-label="Mes"
+          [ngModel]="mesSelecionado"
+          (ngModelChange)="onMesChange($event)"
+          [p-options]="opcoesMes"
+          p-placeholder="Selecione o mes"
+          class="po-lg-3 po-md-4 po-sm-6">
+        </po-combo>
+      </div>
+
       <div class="cards-grid">
         <article class="finance-card finance-card--entrada">
           <span class="finance-card__label">Total de Entradas</span>
@@ -28,6 +49,10 @@ import { ResumoFinanceiro } from '../../core/models/types';
     </po-page-default>
   `,
   styles: [`
+    .filtros-periodo {
+      align-items: flex-end;
+    }
+
     .cards-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -77,6 +102,25 @@ import { ResumoFinanceiro } from '../../core/models/types';
   `]
 })
 export class DashboardFinanceiroComponent implements OnInit {
+  anoSelecionado = new Date().getFullYear();
+  mesSelecionado = new Date().getMonth() + 1;
+
+  opcoesAno: PoComboOption[] = this.criarOpcoesAno();
+  opcoesMes: PoComboOption[] = [
+    { label: 'Janeiro', value: 1 },
+    { label: 'Fevereiro', value: 2 },
+    { label: 'Marco', value: 3 },
+    { label: 'Abril', value: 4 },
+    { label: 'Maio', value: 5 },
+    { label: 'Junho', value: 6 },
+    { label: 'Julho', value: 7 },
+    { label: 'Agosto', value: 8 },
+    { label: 'Setembro', value: 9 },
+    { label: 'Outubro', value: 10 },
+    { label: 'Novembro', value: 11 },
+    { label: 'Dezembro', value: 12 }
+  ];
+
   resumo: ResumoFinanceiro = {
     totalEntradas: 0,
     totalSaidas: 0,
@@ -93,8 +137,28 @@ export class DashboardFinanceiroComponent implements OnInit {
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor ?? 0);
   }
 
+  onAnoChange(valor: string | number): void {
+    const ano = Number(valor);
+    if (Number.isNaN(ano)) {
+      return;
+    }
+
+    this.anoSelecionado = ano;
+    this.carregarResumo();
+  }
+
+  onMesChange(valor: string | number): void {
+    const mes = Number(valor);
+    if (Number.isNaN(mes)) {
+      return;
+    }
+
+    this.mesSelecionado = mes;
+    this.carregarResumo();
+  }
+
   private carregarResumo(): void {
-    this.apiService.resumoMovimentoFinanceiro().subscribe({
+    this.apiService.resumoMovimentoFinanceiro(this.anoSelecionado, this.mesSelecionado).subscribe({
       next: res => {
         this.resumo = res.item ?? this.resumo;
       },
@@ -102,5 +166,16 @@ export class DashboardFinanceiroComponent implements OnInit {
         this.notificacao.error('Erro ao carregar resumo financeiro.');
       }
     });
+  }
+
+  private criarOpcoesAno(): PoComboOption[] {
+    const anoAtual = new Date().getFullYear();
+    const opcoes: PoComboOption[] = [];
+
+    for (let ano = anoAtual + 1; ano >= anoAtual - 10; ano -= 1) {
+      opcoes.push({ label: String(ano), value: ano });
+    }
+
+    return opcoes;
   }
 }

@@ -56,11 +56,39 @@ export const buscarMovimentoFinanceiro = async (req: Request, res: Response): Pr
   res.json({ item: data });
 };
 
-export const resumoMovimentoFinanceiro = async (_req: Request, res: Response): Promise<void> => {
-  const { data, error } = await supabase
+export const resumoMovimentoFinanceiro = async (req: Request, res: Response): Promise<void> => {
+  const anoParam = typeof req.query.ano === 'string' ? Number(req.query.ano) : NaN;
+  const mesParam = typeof req.query.mes === 'string' ? Number(req.query.mes) : NaN;
+
+  const temAno = !Number.isNaN(anoParam);
+  const temMes = !Number.isNaN(mesParam);
+
+  if (temAno && (anoParam < 1900 || anoParam > 3000)) {
+    res.status(400).json({ message: 'Ano invalido.' });
+    return;
+  }
+
+  if (temMes && (mesParam < 1 || mesParam > 12)) {
+    res.status(400).json({ message: 'Mes invalido. Use valores de 1 a 12.' });
+    return;
+  }
+
+  let query = supabase
     .from('movimentofinanceiro')
     .select('tipo, valor')
     .eq('ativo', true);
+
+  if (temAno && temMes) {
+    const inicioPeriodo = new Date(Date.UTC(anoParam, mesParam - 1, 1)).toISOString().slice(0, 10);
+    const fimPeriodo = new Date(Date.UTC(anoParam, mesParam, 1)).toISOString().slice(0, 10);
+    query = query.gte('data_movimento', inicioPeriodo).lt('data_movimento', fimPeriodo);
+  } else if (temAno) {
+    const inicioAno = new Date(Date.UTC(anoParam, 0, 1)).toISOString().slice(0, 10);
+    const fimAno = new Date(Date.UTC(anoParam + 1, 0, 1)).toISOString().slice(0, 10);
+    query = query.gte('data_movimento', inicioAno).lt('data_movimento', fimAno);
+  }
+
+  const { data, error } = await query;
 
   if (error) {
     res.status(500).json({ message: 'Erro ao buscar resumo financeiro', error: error.message });
