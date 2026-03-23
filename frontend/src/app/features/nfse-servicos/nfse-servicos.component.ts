@@ -106,7 +106,8 @@ import { CTribNacLookupService } from './nfse-ctribnac-lookup.service';
                   <po-lookup
                     p-label="Cod. Tributacao Nacional"
                     [p-filter-service]="cTribNacLookupService"
-                    [(ngModel)]="form.infDPS_serv_cServ_cTribNac"
+                    [ngModel]="form.infDPS_serv_cServ_cTribNac"
+                    (ngModelChange)="atualizarCodigoCTribNac($event)"
                     [p-required]="true"
                     p-field-label="descricao"
                     p-field-value="codigo"
@@ -239,7 +240,8 @@ import { CTribNacLookupService } from './nfse-ctribnac-lookup.service';
               <po-lookup
                 p-label="Cod. Tributacao Nacional"
                 [p-filter-service]="cTribNacLookupService"
-                [(ngModel)]="form.infDPS_serv_cServ_cTribNac"
+                [ngModel]="form.infDPS_serv_cServ_cTribNac"
+                (ngModelChange)="atualizarCodigoCTribNac($event)"
                 p-field-label="descricao"
                 p-field-value="codigo"
                 class="po-lg-3">
@@ -987,9 +989,26 @@ export class NfseServicosComponent implements OnInit {
     this.enviarNfse();
   }
 
+  atualizarCodigoCTribNac(valor: unknown): void {
+    this.form.infDPS_serv_cServ_cTribNac = this.extrairCodigoCTribNac(valor);
+  }
+
+  private extrairCodigoCTribNac(valor: unknown): string {
+    if (typeof valor === 'string') {
+      return valor;
+    }
+
+    if (valor && typeof valor === 'object' && 'codigo' in valor) {
+      return String((valor as { codigo: unknown }).codigo ?? '');
+    }
+
+    return '';
+  }
+
   private montarPayload(): Partial<NfseServico> {
     return {
-      ...this.form
+      ...this.form,
+      infDPS_serv_cServ_cTribNac: this.extrairCodigoCTribNac(this.form.infDPS_serv_cServ_cTribNac)
     };
   }
 
