@@ -61,6 +61,17 @@ Por padrão, a API sobe na porta `3000`.
 - `GET /api/pessoas/receitaws/:cnpj`
 - `POST /api/nfse_servicos/:id/enviar` (emite NFS-e na Nuvem Fiscal com base no registro salvo)
 
+## Documentacao Swagger (OpenAPI)
+
+- `GET /api/docs`: interface Swagger UI
+- `GET /api/docs.json`: especificacao OpenAPI em JSON
+
+Com o backend em execucao, acesse:
+
+```bash
+http://localhost:3000/api/docs
+```
+
 As rotas são registradas em `src/server.ts` e os módulos ficam organizados em `controllers/`, `routes/`, `middlewares/`, `models/` e `config/`.
 
 ## Build

@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import swaggerUi from 'swagger-ui-express';
 
 import authRoutes from './routes/auth.routes';
 import usuariosRoutes from './routes/usuarios.routes';
@@ -12,6 +13,7 @@ import pessoasRoutes from './routes/pessoas.routes';
 import nfseServicosRoutes from './routes/nfse-servicos.routes';
 import nfseCTribNacRoutes from './routes/nfse-ctribnac.routes';
 import movimentoFinanceiroRoutes from './routes/movimentofinanceiro.routes';
+import { openApiDocument } from './docs/openapi';
 
 dotenv.config();
 
@@ -21,6 +23,15 @@ const isDirectRun = require.main === module;
 
 app.use(cors({ origin: '*' }));
 app.use(express.json());
+
+app.get('/api/docs.json', (_req, res) => {
+  res.json(openApiDocument);
+});
+
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(openApiDocument, {
+  explorer: true,
+  customSiteTitle: 'MobileCosta API Docs'
+}));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/usuarios', usuariosRoutes);
