@@ -288,8 +288,6 @@ export const buscarChavesSefaz = async (req: Request, res: Response): Promise<vo
 </soap:Envelope>`;
 
   try {
-    res.status(500).json({ message: 'Retorno servico NFCeListagemChaves', error: soapEnvelope });
-
     const resposta = await fetch(`${NFCE_LISTAGEM_CHAVES_URL}?op=nfceListagemChaves`, {
       method: 'POST',
       headers: {
@@ -298,6 +296,8 @@ export const buscarChavesSefaz = async (req: Request, res: Response): Promise<vo
       },
       body: soapEnvelope
     });
+
+    res.status(500).json({ message: 'Retorno servico NFCeListagemChaves', error: resposta });
 
     const xmlResposta = await resposta.text();
     const chaves = extrairChavesDoXml(xmlResposta);
