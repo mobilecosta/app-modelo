@@ -198,7 +198,10 @@ export const openApiDocument = {
     { name: 'Pessoas' },
     { name: 'Nfse Servicos' },
     { name: 'Nfse CTribNac' },
-    { name: 'Movimento Financeiro' }
+    { name: 'Movimento Financeiro' },
+    { name: 'EmpresasCertificados' },
+    { name: 'ListagemChaves' },
+    { name: 'DownloadXML' }
   ],
   components: {
     securitySchemes: {
@@ -278,6 +281,9 @@ export const openApiDocument = {
     ...createCrudPaths('/api/campos', 'Campos', 'id'),
     ...createCrudPaths('/api/pessoas', 'Pessoas', 'id'),
     ...createCrudPaths('/api/movimentofinanceiro', 'Movimento Financeiro', 'id'),
+    ...createCrudPaths('/api/empresascertificados', 'EmpresasCertificados', 'id'),
+    ...createCrudPaths('/api/listagemchaves', 'ListagemChaves', 'id'),
+    ...createCrudPaths('/api/downloadxml', 'DownloadXML', 'id'),
     '/api/menus/arvore': {
       get: {
         tags: ['Menus'],

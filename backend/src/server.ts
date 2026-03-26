@@ -13,6 +13,9 @@ import pessoasRoutes from './routes/pessoas.routes';
 import nfseServicosRoutes from './routes/nfse-servicos.routes';
 import nfseCTribNacRoutes from './routes/nfse-ctribnac.routes';
 import movimentoFinanceiroRoutes from './routes/movimentofinanceiro.routes';
+import empresasCertificadosRoutes from './routes/empresascertificados.routes';
+import listagemChavesRoutes from './routes/listagemchaves.routes';
+import downloadXmlRoutes from './routes/downloadxml.routes';
 import { openApiDocument } from './docs/openapi';
 
 dotenv.config();
@@ -43,6 +46,9 @@ app.use('/api/pessoas', pessoasRoutes);
 app.use('/api/nfse_servicos', nfseServicosRoutes);
 app.use('/api/nfse_ctribnac', nfseCTribNacRoutes);
 app.use('/api/movimentofinanceiro', movimentoFinanceiroRoutes);
+app.use('/api/empresascertificados', empresasCertificadosRoutes);
+app.use('/api/listagemchaves', listagemChavesRoutes);
+app.use('/api/downloadxml', downloadXmlRoutes);
 
 app.get(['/health', '/api/health'], (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
