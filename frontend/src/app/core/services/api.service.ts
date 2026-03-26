@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {
-  ApiResponse, Campo, Menu, MovimentoFinanceiro, NfseCTribNac, NfseServico, Pessoa, PessoaFormPayload, PessoaReceitaWsResponse, ResumoFinanceiro, Sistema, Tabela, Usuario
+  ApiResponse, Campo, EmpresaCertificado, Menu, MovimentoFinanceiro, NfseCTribNac, NfseServico, Pessoa, PessoaFormPayload, PessoaReceitaWsResponse, ResumoFinanceiro, Sistema, Tabela, Usuario
 } from '../models/types';
 import { environment } from '../../../environments/environment';
 
@@ -241,5 +241,31 @@ export class ApiService {
     }
 
     return this.http.get<ApiResponse<ResumoFinanceiro>>(`${environment.apiUrl}/movimentofinanceiro/resumo`, { params });
+  }
+
+  listarEmpresasCertificados(page = 1, pageSize = 10): Observable<ApiResponse<EmpresaCertificado>> {
+    const params = new HttpParams()
+      .set('page', page)
+      .set('pageSize', pageSize);
+    return this.http.get<ApiResponse<EmpresaCertificado>>(`${environment.apiUrl}/empresascertificados`, { params });
+  }
+
+  buscarEmpresaCertificado(id: string): Observable<ApiResponse<EmpresaCertificado>> {
+    return this.http.get<ApiResponse<EmpresaCertificado>>(`${environment.apiUrl}/empresascertificados/${id}`);
+  }
+
+  criarEmpresaCertificado(dados: Partial<EmpresaCertificado>): Observable<ApiResponse<EmpresaCertificado>> {
+    return this.http.post<ApiResponse<EmpresaCertificado>>(`${environment.apiUrl}/empresascertificados`, dados);
+  }
+
+  atualizarEmpresaCertificado(
+    id: string,
+    dados: Partial<EmpresaCertificado>
+  ): Observable<ApiResponse<EmpresaCertificado>> {
+    return this.http.put<ApiResponse<EmpresaCertificado>>(`${environment.apiUrl}/empresascertificados/${id}`, dados);
+  }
+
+  excluirEmpresaCertificado(id: string): Observable<void> {
+    return this.http.delete<void>(`${environment.apiUrl}/empresascertificados/${id}`);
   }
 }

@@ -71,6 +71,16 @@ export interface ResumoFinanceiro {
   saldo: number;
 }
 
+export interface EmpresaCertificado {
+  id: string;
+  cnpj: string;
+  certificado_pfx_base64: string;
+  senha_certificado: string;
+  ativo: boolean;
+  created_at?: string;
+  updated_at?: string;
+}
+
 export interface PessoaAtividadeSecundaria {
   id?: string;
   pessoa_id?: string;

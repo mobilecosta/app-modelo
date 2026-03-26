@@ -53,6 +53,10 @@ export const routes: Routes = [
       {
         path: 'movimentofinanceiro',
         loadComponent: () => import('./features/movimentofinanceiro/movimentofinanceiro.component').then(m => m.MovimentofinanceiroComponent)
+      },
+      {
+        path: 'empresascertificados',
+        loadComponent: () => import('./features/empresascertificados/empresascertificados.component').then(m => m.EmpresascertificadosComponent)
       }
     ]
   },
