@@ -81,6 +81,20 @@ export interface EmpresaCertificado {
   updated_at?: string;
 }
 
+export interface ListagemChave {
+  id: string;
+  empresa_id?: string | null;
+  cnpj: string;
+  chave_acesso: string;
+  data_emissao?: string | null;
+  valor_total?: number | null;
+  protocolo?: string | null;
+  situacao?: string | null;
+  retorno_servico?: Record<string, unknown> | null;
+  created_at?: string;
+  updated_at?: string;
+}
+
 export interface PessoaAtividadeSecundaria {
   id?: string;
   pessoa_id?: string;

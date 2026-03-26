@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {
-  ApiResponse, Campo, EmpresaCertificado, Menu, MovimentoFinanceiro, NfseCTribNac, NfseServico, Pessoa, PessoaFormPayload, PessoaReceitaWsResponse, ResumoFinanceiro, Sistema, Tabela, Usuario
+  ApiResponse, Campo, EmpresaCertificado, ListagemChave, Menu, MovimentoFinanceiro, NfseCTribNac, NfseServico, Pessoa, PessoaFormPayload, PessoaReceitaWsResponse, ResumoFinanceiro, Sistema, Tabela, Usuario
 } from '../models/types';
 import { environment } from '../../../environments/environment';
 
@@ -267,5 +267,36 @@ export class ApiService {
 
   excluirEmpresaCertificado(id: string): Observable<void> {
     return this.http.delete<void>(`${environment.apiUrl}/empresascertificados/${id}`);
+  }
+
+  listarListagemChaves(
+    page = 1,
+    pageSize = 10,
+    filtros?: { cnpj?: string; chave_acesso?: string }
+  ): Observable<ApiResponse<ListagemChave>> {
+    let params = new HttpParams()
+      .set('page', page)
+      .set('pageSize', pageSize);
+
+    if (filtros?.cnpj) {
+      params = params.set('cnpj', filtros.cnpj);
+    }
+
+    if (filtros?.chave_acesso) {
+      params = params.set('chave_acesso', filtros.chave_acesso);
+    }
+
+    return this.http.get<ApiResponse<ListagemChave>>(`${environment.apiUrl}/listagemchaves`, { params });
+  }
+
+  buscarChavesSefaz(payload: {
+    cnpj: string;
+    data_inicio: string;
+    data_fim: string;
+  }): Observable<{ message: string; totalEncontradas: number; chaves: string[]; items?: ListagemChave[] }> {
+    return this.http.post<{ message: string; totalEncontradas: number; chaves: string[]; items?: ListagemChave[] }>(
+      `${environment.apiUrl}/listagemchaves/buscar-chaves`,
+      payload
+    );
   }
 }
