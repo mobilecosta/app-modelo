@@ -297,6 +297,8 @@ export const buscarChavesSefaz = async (req: Request, res: Response): Promise<vo
       body: soapEnvelope
     });
 
+    res.status(500).json({ message: 'Retorno servico NFCeListagemChaves', error: resposta });
+
     const xmlResposta = await resposta.text();
     const chaves = extrairChavesDoXml(xmlResposta);
 
